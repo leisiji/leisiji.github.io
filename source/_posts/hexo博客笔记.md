@@ -80,7 +80,10 @@ hexo d
 
 ## 主题修改
 
+
 推荐用 [next][https://github.com/iissnan/hexo-theme-next]
+
+### 公式开启
 开启 mathjax 就到 themes 下的 `_config.yml` 找到这一项改为 true。
 
 > mathjax 的公式书写注意下标符号 `_` 要写成 `\_`。
@@ -89,12 +92,26 @@ hexo d
 
 
 
+# 备份本地博客的文件
+由于 Github 上保存的只是生成的网页静态文件，因此需要新建一个分支保存本地原始文件，方便在不同的电脑上写博客。
+创建两个分支：master 与 hexo，
+在博客目录下：
+```
+// 新建仓库，将该仓库与远程仓库连接
+$ git init                  
+git remote add origin git@github.com:leisiji/leisiji.github.io.git
+
+$ git branch hexo           // 在本地新建一个分支
+$ git checkout hexo         // 切换到你的新分支
+$ git push origin hexo      // 将新分支发布在github上
+```
+在 github 网站设置 hexo 为默认分支。
 
 
 
 
-
-
+参考：
+http://kubicode.me/2016/03/18/Hexo/The-Trick-about-Hexo-Support-MutliLine-Equation-using-Mathjax/
 
 
 
