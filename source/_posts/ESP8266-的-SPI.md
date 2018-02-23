@@ -26,7 +26,7 @@ tags: ESP8266
 一些重要的参数在 `spi_register.h` 的里面。
 
 # 程序的详解
-```
+```C
 // Test spi master interfaces.
 void spi_master_test()
 {
@@ -94,7 +94,7 @@ void spi_master_test()
 
 
 从机接受信号之后返回信号
-```
+```C
 // Test spi slave interfaces.
 void spi_slave_test()
 {
@@ -150,7 +150,7 @@ LoRa 的通信采用 SPI，一下就是记录连接和修改代码的过程。
 下面会挑一些代码出来讲解，讲述开发过程的坑。
 
 ## SX1278.c
-```
+```C
 /* reset lora */
 void SX1278_Reset(SX1278_hw_t *hw){
   // reset pin setup
@@ -169,7 +169,7 @@ void SX1278_Reset(SX1278_hw_t *hw){
 
 > GPIO15，也就是 NSS 管脚需要设置为普通的输出模式，作为软选择管脚，绝对不能设置为 `FUNC_HSPI_CS0` 的特殊功能。
 
-```
+```C
 /* SPI 发送数据，返回的参数可以检测 SPI 是否发送成功 */
 int singleTransfer( SX1278_hw_t *hw, uint8_t address, uint8_t value)
 {
@@ -198,7 +198,7 @@ typedef struct
 从上面可以看到 Arduino 中的 API 的 transfer 是先要传入一个地址，后来再运行一次函数才会向地址传入值。
 
 而在 SPI 的 transfer 函数中：
-```
+```C
 uint8_t transfer(uint8_t data) {
     while(SPI1CMD & SPIBUSY) {}
     // reset to 8Bit mode
@@ -213,7 +213,7 @@ ESP8266 的 SPI 通信格式为：命令（7 位） + 地址（1 位） + 读写
 
 
 而且通过 SPI 读取和写入 LoRa 的寄存器稍微不同（地址的运算不同）：
-```
+```C
 u8_t readRegister(SX1278_hw_t *hw, uint8_t address)
 {
   return singleTransfer(hw, address & 0x7f, 0x00);
@@ -257,7 +257,7 @@ void onReceive(SX1278_hw_t *hw, void(*callback)(int)){
 - `available()` 是判断当前 `REG_RX_NB_BYTES` 是否为 0，也就是 RX 接收寄存器是否还有下一个字节。
 
 特别写一下发送和接收：
-```
+```C
 // 发送
 uint8_t size = sprintf(buffer,"hello %d\n",counter);
 beginPacket(&hw,false);     
@@ -293,7 +293,7 @@ receive_entry(&hw, 0);
 
 ## LoRa 设置的参数
 除了管脚之外，下面几个参数是比较重要的：
-```
+```C
 typedef struct {
     ...
     long frequency;

@@ -86,7 +86,9 @@ hexo d
 ### 公式开启
 开启 mathjax 就到 themes 下的 `_config.yml` 找到这一项改为 true。
 
-> mathjax 的公式书写注意下标符号 `_` 要写成 `\_`。
+> mathjax 的公式书写注意下标符号 `_` 要写成 `\_`；换行 `\\` 要写成 `\\\\`。
+
+这是因为 markdown 的渲染引擎的转义。
 
 要想嵌入图片就在 source 文件夹下新建一个叫做 images 的文件夹，往里面放图片，引用的连接格式为 `/images/XX.jpg` 
 
