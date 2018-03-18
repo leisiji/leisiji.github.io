@@ -4,7 +4,7 @@ date: 2018-03-18 09:40:43
 tags:
 ---
 下文是 A-Systematic-Approach-to-Learning-Robot-Programming-with-ROS 一书的学习笔记。
-
+<!--more-->
 # 第二章
 
 ## 消息

@@ -110,15 +110,20 @@ $ git push origin hexo      // 将新分支发布在github上
 在 github 网站设置 hexo 为默认分支。
 
 
+**解决乱码问题**
+[参考](https://www.zhihu.com/question/41625825/answer/128795760)
+页面出现乱码，在 next 主题目录下有一个 language 的文件夹，将 zh-Hans.yml 重命名 zh-CN.yml。.在 hexo 文件夹里的 `_config.yml` 修改 language: zh-CN
+
+
+# 添加一些其他元素
+下面的操作都在 next 文件夹下的 `_config.yml` 完成。
+
+- 改变主题：找到 themes，我这里改为了 Mist 主题
+- 改变代码高亮，`highlight_theme`，我改为 night
+- 加入 Github 或者知乎链接，加入 `social:` 标签，加入 `知乎: http://www.zhihu.com/people/yangsiji9` 元素。而图标需要在 fontawsome 里面收录，在`social_icons` 标签里面添加连接相同的名字，比如 `GitHub: github`、`知乎: heart-o`（知乎还未收录）
+- 添加动态背景：`canvas_nest: true`。
 
 
 参考：
 http://kubicode.me/2016/03/18/Hexo/The-Trick-about-Hexo-Support-MutliLine-Equation-using-Mathjax/
-
-
-
-
-
-
-
 [https://github.com/iissnan/hexo-theme-next]: https://github.com/iissnan/hexo-theme-next
