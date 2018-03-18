@@ -122,7 +122,7 @@ $ git push origin hexo      // 将新分支发布在github上
 - 改变代码高亮，`highlight_theme`，我改为 night
 - 加入 Github 或者知乎链接，加入 `social:` 标签，加入 `知乎: http://www.zhihu.com/people/yangsiji9` 元素。而图标需要在 fontawsome 里面收录，在`social_icons` 标签里面添加连接相同的名字，比如 `GitHub: github`、`知乎: heart-o`（知乎还未收录）
 - 添加动态背景：`canvas_nest: true`。
-- 添加头像，avatar，最好是添加在线的头像 url（可以上传 Github）。
+- 添加头像，avatar，最好是添加在线的头像 url(推荐使用新浪图床，chrome 有一个插件可以快速生成 url，但是有可能会被封杀)
 
 
 参考：
