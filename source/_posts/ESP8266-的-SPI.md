@@ -225,7 +225,7 @@ void writeRegister(SX1278_hw_t *hw, uint8_t address, uint8_t value)
 }
 ```
 最后就是接收数据的回调函数：
-```
+```C
 void onReceive(SX1278_hw_t *hw, void(*callback)(int)){
   _onReceive = callback;
   if (callback)
