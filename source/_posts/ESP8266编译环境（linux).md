@@ -6,8 +6,10 @@ tags:
 
 首先说明，如果对于 linux 不是太熟悉，不建议在 linux 上进行开发，用 windows 虚拟机就可以进行了。
 <!--more-->
-当然也可以选择在 WSL 上搭建开发的环境。
+
 linux 的好处是编译的速度大大加快。
+
+> 首先说明一点：不要用 WSL 了，因为现在 WSL 不支持 32 位 linux-elf 程序。完成所有步骤之后，会发现 xtensa 交叉编译工具无法运行。
 
 # 方法一
 如果第一个出现问题，可以进行逐个安装
@@ -16,7 +18,8 @@ sudo apt-get install git autoconf build-essential gperf bison flex texinfo libto
 mkdir /opt/Espressif
 sudo chown $username /opt/Espressif/
 ```
-注意如果在 WSL 上，libc6-dev-amd64 要换成 libc6-dev。
+libc6-dev-amd64 要换成 libc6-dev。
+
 接着就是安装 xtensa：
 ```bash
 cd /opt/Espressif
