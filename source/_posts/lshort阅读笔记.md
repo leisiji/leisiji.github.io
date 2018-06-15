@@ -251,7 +251,7 @@ cious.
 
 
 **文档结构的划分**
-所有标准文档类都提供了一个 `\appendix` 命令将正文和附录分开2，使用 `\appendix` 后，最高一级章节改为使用拉丁字母编号，从 A 开始。
+所有标准文档类都提供了一个 `\appendix` 命令将正文和附录分开，最高一级章节改为使用拉丁字母编号，从 A 开始。
 book 文档类还提供了前言、正文、后记结构的划分命令：
 
 - `\frontmatter` 前言部分，页码为小写罗马字母格式；其后的 `\chapter` 不编号。
@@ -264,8 +264,8 @@ book 文档类还提供了前言、正文、后记结构的划分命令：
 ```tex
 \title{<title>}  \author{<author>}   \date{<date>}
 ```
-其中前两个命令是必须的（不用 \title 会报错；不用 \author 会警告），\date 命令可选。
-\today 命令自动生成当前日期，\date 默认使用 \today。
+其中前两个是必须的（不用 `\title` 会报错；不用 `\author` 会警告），`\date` 可选。
+`\today` 自动生成当前日期，`\date` 默认使用 `\today`。
 在信息给定后，就可以使用:
 ```tex
 \maketitle
@@ -296,16 +296,17 @@ book 文档类的文档结构示例:
 \backmatter
 \include{prologue} % 后记 prologue.tex
 \bibliography{...} % 利用 BibTeX 工具生成参考文献 \printindex
-% 利用 makeindex 工具生成索引 \end{document}
+% 利用 makeindex 工具生成索引 
+\end{document}
 ```
 
 
 **交叉引用**:
-在能够被交叉引用的地方，如章节、公式、图表、定理等位置使用 \label 命令：
+在能够被交叉引用的地方，如章节、公式、图表、定理等位置使用 `\label` 命令：
 ```tex
 \label{<label-name>}
 ```
-之后可以在别处使用 \ref 或 \pageref 命令，分别生成交叉引用的编号和页码：
+之后可以在别处使用 `\ref` 或 `\pageref` 命令，分别生成交叉引用的编号和页码：
 ```tex
 \ref{<label-name>}   \pageref{<label-name>}
 ```
@@ -319,7 +320,7 @@ page~\pageref{sec:this}.’’
 效果:
 A reference to this subsection looks like: “see section `3.3` on page `20`.”
 ```
-在使用不记编号的命令形式（\section*、\caption*、带可选参数的 \item 命令等）时不要使用 \label 命令，否则生成的引用编号不正确。
+在使用不记编号的命令形式（`\section*`、`\caption*`、带可选参数的 `\item` 命令等）时不要使用 `\label` 命令，否则生成的引用编号不正确。
 
 
 **脚注**:
@@ -327,7 +328,7 @@ A reference to this subsection looks like: “see section `3.3` on page `20`.”
 ```tex
 “天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。”\footnote{出自《千字文》。}
 ```
-有些情况下（比如在表格环境、各种盒子内）使用 `\footnote` 并不能正确生成脚注. 我们可以分两步进行，先使用 `\footnotemark `为脚注计数，再在合适的位置用` \footnotetext` 生成脚注。比如：
+有些情况下（比如在表格环境、各种盒子内）使用 `\footnote` 并不能正确生成脚注. 可以分两步进行，先使用 `\footnotemark `为脚注计数，再在合适的位置用` \footnotetext` 生成脚注。比如：
 ```tex
 \begin{tabular}{l} 
 \hline 
@@ -336,17 +337,17 @@ A reference to this subsection looks like: “see section `3.3` on page `20`.”
 \end{tabular} 
 \footnotetext{表格里的名句出自《千字文》。}
 ```
-![](leanote://file/getImage?fileId=5ab34f73ab64412132000d6c)
+![](/images/tex_1.png)
 
 
 **列表**:
-LATEX 提供了基本的有序和无序列表环境 enumerate 和 itemize，两者的用法很类似，都用 \item 标明每个列表项。enumerate 环境会自动对列表项编号。
+基本的有序和无序列表环境 enumerate 和 itemize，用法很类似，都用 `\item` 标明每个列表项。enumerate 环境会自动对列表项编号。
 ```tex
 \begin{enumerate} 
 \item . . .
 \end{enumerate}
 ```
-其中 \item 可带一个可选参数，将有序列表的计数或者无序列表的符号替换成自定义的符号. 列表可以嵌套使用，最多嵌套四层。
+`\item` 可带一个可选参数，将有序列表的计数或者无序列表的符号替换成自定义的符号。列表可以嵌套使用，最多嵌套四层。
 ```tex
 \begin{enumerate} 
     \item An item. 
@@ -367,18 +368,15 @@ LATEX 提供了基本的有序和无序列表环境 enumerate 和 itemize，两�
 2. Go back to upper level. 
 3. Reference(1b).
 ```
-itemize 的用法类似, 无序列表的序号为实心圆点和 - (子列表中)
-关键字环境 description 的用法与以上两者类似，不同的是 \item 后的可选参数用来写关键字，以粗体显示，一般是必填的：
+itemize 的用法类似, 无序列表的序号为实心圆点和 `-` (子列表中)
+关键字环境 description 的用法与以上两者类似，不同的是 `\item` 后的可选参数用来写关键字，以粗体显示，一般是必填的：
 ```tex
 \begin{description} 
 \item[Enumerate] Numbered list. 
 \item[Itemize] Non-numbered list. 
 \end{description}
 ```
-效果为:
-**Enumerate** Numbered list. 
-**Itemize** Non-numbered list.
-默认的列表间距比较宽，LATEX 本身也未提供方便的定制功能，而要用到` enumitem` 宏包定制各种列表间距。enumitem 宏包还提供了对列表标签、引用等的定制。
+默认的列表间距比较宽，要用到 `enumitem` 宏包定制各种列表间距，宏包还提供了对列表标签、引用等的定制。
 
 
 **对齐环境**:
@@ -388,18 +386,22 @@ center、flushleft 和 flushright 环境分别用于生成居中、左对齐和�
 \begin{flushleft} . . .     \end{flushleft} 
 \begin{flushright} . . .    \end{flushright}
 ```
-除此之外，还可以用以下命令直接改变文字的对齐方式：
+还可以用以下命令直接改变文字的对齐方式：
 ```tex
 \centering
 \raggedright 
 \raggedleft 
 ```
 上述两种用法的区别: 
-`center` 等环境会在上下文产生一个额外间距，而 `\centering` 等命令不产生。比如在浮动体环境 table 或 figure 内实现居中对齐，用 \centering 命令即可。
+`center` 等环境会在上下文产生一个额外间距，而 `\centering` 等命令不产生。比如在浮动体环境 table 或 figure 内实现居中对齐，用 `\centering` 命令即可。
 
 
 **引用环境**:
-LATEX 提供了两种引用的环境：`quote` 用于引用较短的文字，首行不缩进；`quotation` 用于引用若干段文字，首行缩进。引用环境较一般文字有额外的左右缩进。
+两种引用的环境：
+
+- `quote` 用于引用较短的文字，首行不缩进；
+- `quotation` 用于引用若干段文字，首行缩进。引用环境较一般文字有额外的左右缩进。
+
 ```tex
 Francis Bacon says:
 \begin{quote} 
@@ -410,11 +412,11 @@ verse 用于排版诗歌，与 quotation 恰好相反，verse 是首行悬挂缩
 
 
 **摘要环境**:
-abstract 默认只在标准文档类中的 article 和 report 文档类可用，一般用于紧跟 \maketitle 命令之后介绍文档的摘要。如果文档类指定了 titlepage 选项，则单独成页；反之，单栏排版时相当于一个居中的小标题加一个 quotation 环境，双栏排版时相当于 `\section*` 定义的一节。
+abstract 默认只在标准文档类中的 article 和 report 可用，一般用于紧跟 `\maketitle` 之后介绍文档的摘要。如果指定了 titlepage 选项，则单独成页；反之，单栏排版时相当于一个居中的小标题加一个 quotation 环境，双栏排版时相当于 `\section*` 定义的一节。
 
 
 **代码环境**:
-它以等宽字体排 版代码，回车和空格也分别起到换行和空位的作用; 带星号的版本更进一步将空格以特殊符号的形式显示出来: 
+它以等宽字体排版代码，回车和空格也分别起到换行和空位的作用; 带星号的版本更进一步将空格以特殊符号的形式显示出来: 
 ```tex
 \begin{verbatim}
 ...
@@ -423,21 +425,17 @@ abstract 默认只在标准文档类中的 article 和 report 文档类可用，
 \begin{verbatim*}
 \end{verbatim*}
 ```
-要排版简短的代码或关键字，可使用 \verb 命令：
+要排版简短的代码或关键字，可使用 `\verb`：
 ```tex
 \verb<delim><code><delim>
 ```
-<delim> 标明代码的分界位置，前后必须一致，除字母、空格或星号外，可任意选择使得不与代码本身冲突，习惯上使用 | 符号。
-同 verbatim 环境，\verb 后也可以带一个星号，以显示空格：
+<delim> 标明代码的分界位置，前后必须一致，除字母、空格或星号外，可任意选择使得不与代码本身冲突，习惯上使用 `|` 符号。
+同 verbatim 环境，`\verb` 后也可以带一个星号，以显示空格：
 ```tex
 \verb|\LaTeX| \\ 
 \verb+(a || b)+ \verb*+(a || b)+
-
-显示效果为:
-\LaTeX 
-(a || b) (a␣||␣b)
 ```
-verbatim 宏包优化了 verbatim 环境的内部命令，并提供了 \verbatiminput 命令用来直接读入文件生成代码环境。fancyvrb 宏包提供了可定制格式的 Verbatim 环境；listings 宏包更进一步，可生成关键字高亮的代码环境，支持各种程序设计语言的语法和关键字。
+verbatim 宏包优化了 verbatim 环境的内部命令，并提供了 `\verbatiminput` 命令用来直接读入文件生成代码环境。fancyvrb 宏包提供了可定制格式的 Verbatim 环境；listings 宏包更进一步，可生成关键字高亮的代码环境，支持各种程序设计语言的语法和关键字。
 
 ## 表格
 排版表格最基本的 tabular 环境用法为：
@@ -448,7 +446,7 @@ verbatim 宏包优化了 verbatim 环境的内部命令，并提供了 \verbatim
 <item1 > & <item2> & . . . \\
 \end{tabular}
 ```
-其中` <column-spec>` 是列格式标记，在接下来的内容将仔细介绍；`&` 用来分隔单元格；`\\` 用来换 行；`\hline` 用来在行与行之间绘制横线。
+`<column-spec>` 是列格式标记，在接下来的内容将仔细介绍；`&` 用来分隔单元格；`\\` 用来换 行；`\hline` 用来在行与行之间绘制横线。
 直接使用 tabular 环境的话，会和周围的文字混排。tabular 环境可带一个可选参数控制垂直对齐（默认是垂直居中）：
 ```tex
 \begin{tabular}{|c|} 
@@ -465,16 +463,17 @@ bottom-\\ aligned\\
 %可选参数 b 代表 bottom
 ```
 效果:
-![](leanote://file/getImage?fileId=5ab34f73ab64412132000d6d)
+![](/images/tabular.png)
+
 但是通常情况下我们不这么用，tabular 环境一般会放置在 table 浮动体环境中，并用 `\caption` 命令加标题。
 表格中基本的列格式如下表：
 
 |列格式 | 说明 |
 |---|---|
-|l/c/r | 单元格内容左对齐/居中/右对齐，不折行|
-|p{<width>} | 单元格宽度固定为 <width>，可自动折行|
-| \|  |  绘制竖线  |
-|  @{<string>}    | 自定义内容 <string>    |
+| `l/c/r` | 单元格内容左对齐/居中/右对齐，不折行|
+| `p{<width>}` | 单元格宽度固定为 `<width>`，可自动折行|
+| `\|`  |  绘制竖线  |
+|  `@{<string>}`    | 自定义内容 `<string>`    |
 
 ```tex
 \begin{tabular}{lcr|p{6em}} 
@@ -486,9 +485,10 @@ L       & C         & R     & P \\
 \end{tabular}
 ```
 效果: 
-![](leanote://file/getImage?fileId=5ab34f72ab64412132000d64)
-表格中每行的单元格数目不能多于列格式里 l/c/r/p 的总数（可以少于这个总数），否则出错。
-@ 格式可在单元格前后插入任意的文本，但同时它也消除了单元格前后额外添加的间距。@ 格式可以适当使用以充当“竖线”。特别地，`@{}` 可直接用来消除单元格前后的间距 (@{} 不算做一个单宇格的元素)：
+![](/images/tabular2.png)
+
+表格中每行的单元格数目不能多于列格式里 `l/c/r/p` 的总数（可以少于这个总数），否则出错。
+`@` 格式可在单元格前后插入任意的文本，但同时它也消除了单元格前后额外添加的间距。`@` 格式可以适当使用以充当“竖线”。特别地，`@{}` 可直接用来消除单元格前后的间距 (@{} 不算做一个单宇格的元素)：
 ```tex
 % @{} 消除了表格的边沿到元素的距离, 要以一列占位最大的元素为基准. 
 \begin{tabular}{@{} r@{:}lr @{}}
@@ -497,14 +497,15 @@ L       & C         & R     & P \\
     \hline
 \end{tabular}
 ```
-![](leanote://file/getImage?fileId=5ab34f73ab64412132000d6b)
+![](/images/tabular3.png)
+
 另外 LATEX 还提供了简便的将格式参数重复的写法 `*{<n>}{<column-spec>}`，比如以下两种写法是等效的：
 ```tex
 \begin{tabular}{|c|c|c|c|c|p{4em}|p{4em}|} 
 \begin{tabular}{|*{5}{c|}*{2}{p{4em}|}}
 ```
 有时需要为整列修饰格式，比如整列改变为粗体，如果每个单元格都加上 \bfseries 命令会比较麻烦。array 宏包提供了辅助格式 > 和 <，用于给列格式前后加上修饰命令：
-`>{\itshape}r`, `<{*}`, `>`表示在左边作用, `<`表示在右边作用
+`>{\itshape}r`, `<{*}`, `>`表示在左边作用, `<` 表示在右边作用
 ```tex
 \begin{tabular}{>{\itshape}r<{*}l} 
 \hline 
@@ -514,8 +515,8 @@ L       & C         & R     & P \\
 \end{tabular}
 %第一列的 italic 和 column 就变成了斜体. 
 ```
-辅助格式甚至支持插入 \centering 等命令改变 p 列格式的对齐方式，一般还要加额外的
-命令 \arraybackslash 以免出错:
+辅助格式甚至支持插入 `\centering` 等命令改变 p 列格式的对齐方式，一般还要加额外的
+命令 `\arraybackslash` 以免出错:
 ```tex
 \begin{tabular}
 {>{\centering\arraybackslash}p{9em}} 
@@ -523,13 +524,13 @@ L       & C         & R     & P \\
     Some center-aligned long text. \\ 
     \hline
 \end{tabular}
-%效果为表格中只有一个自动换行的句子. 
+% 效果为表格中只有一个自动换行的句子. 
 ```
 
 
 **列宽** :
-LATEX 表格有着明显的不足：l/c/r 格式的列宽是由文字内容的自然宽度决定的，而 p 格式给定了列宽却不好控制对齐（可用 `array 宏包`的辅助格式），更何况列与列之间通常还有间距，所以直接生成给定总宽度的表格并不容易。
-tabular* 环境用来排版定宽表格，但是不太方便使用，比如要用到 @ 格式插入额外命令，令单元格之间的间距为 \fill，但即使这样仍然有瑕疵：
+LATEX 表格有着明显的不足：`l/c/r` 格式的列宽是由文字内容的自然宽度决定的，而 p 格式给定了列宽却不好控制对齐（可用 `array 宏包`的辅助格式），更何况列与列之间通常还有间距，所以直接生成给定总宽度的表格并不容易。
+`tabular*` 环境用来排版定宽表格，但是不太方便使用，比如要用到 `@` 格式插入额外命令，令单元格之间的间距为 `\fill`，但即使这样仍然有瑕疵：
 ```tex
 \begin{tabular*}{14em}%
 {@{\extracolsep{\fill}}|c|c|c|c|} 
@@ -538,8 +539,9 @@ tabular* 环境用来排版定宽表格，但是不太方便使用，比如要�
     \hline
 \end{tabular*}
 ```
-![](leanote://file/getImage?fileId=5ab34f72ab64412132000d67)
-tabularx 宏包为我们提供了方便的解决方案。它引入了一个 X 格式，类似 p 格式，不过会根据表格宽度自动计算列宽，多个 X 格式平均分配列宽。X 格式也可以用 array 里的辅助格式修饰对齐方式：
+![](/images/tabular4.png)
+
+tabularx 宏包提供了方便的解决方案。它引入了一个 X 格式，类似 p 格式，不过会根据表格宽度自动计算列宽，多个 X 格式平均分配列宽。X 格式也可以用 array 里的辅助格式修饰对齐方式：
 ```tex
 \begin{tabularx}{14em}%
 {|*{4}{>{\centering\arraybackslash}X|}}
@@ -557,7 +559,7 @@ X| 代表重复的元素
 
 
 **横线**:
-\cline{<i>-<j>} 用来 绘制跨越部分单元格的横线：
+`\cline{<i>-<j>}` 用来 绘制跨越部分单元格的横线：
 ```tex
 \begin{tabular}{|c|c|c|} 
     \hline
@@ -570,8 +572,9 @@ X| 代表重复的元素
 \end{tabular}
 ```
 ![](leanote://file/getImage?fileId=5ab34f72ab64412132000d5f)
+
 在科技论文排版中广泛应用的表格形式是三线表，形式干净简明。三线表由 `booktabs` 宏包支持，它提供了` \toprule、\midrule 和 \bottomrule` 命令用以排版三线表的三条线，以及和 `\cline` 对应的 `\cmidrule`。除此之外，最好不要用其它横线以及竖线：
-```
+```tex
 \begin{tabular}{cccc} 
     \toprule
     & \multicolumn{3}{c}{Numbers} \\ 
@@ -588,11 +591,11 @@ X| 代表重复的元素
 
 **合并单元格** : 
 横向合并单元格较为容易 : 
-```
+```tex
 \multicolumn{<n>}{<column-spec>}{<item>}
 ```
 其中 <n> 为要合并的列数，<column-spec> 为合并单元格后的列格式，只允许出现一个 l/c/r 或 p 格式。如果合并前的单元格前后带表格线 |，合并后的列格式也要带 | 以使得表格的竖线一致。
-```
+```tex
 \begin{tabular}{|c|c|c|} 
     \hline 
     1 & 2 & Center \\ 
@@ -605,13 +608,14 @@ X| 代表重复的元素
 \end{tabular}
 ```
 ![](leanote://file/getImage?fileId=5ab34f73ab64412132000d6a)
+
 上面的例子还体现了，形如 \multicolumn{1}{<column-spec>}{<item>} 的命令可以用来修改某一个单元格的列格式。
 纵向合并单元格需要用到 `multirow 宏包`提供的 \multirow 命令：
 ```
 \multirow{<n>}{<width>}{<item>}
 ```
 <width> 为合并后单元格的宽度，可以填 * 以使用自然宽度。
-```
+```tex
 \begin{tabular}{ccc} 
     \hline
         \multirow{2}{*}{Item} & \multicolumn{2}{c}{Value} \\ 
@@ -628,7 +632,7 @@ X| 代表重复的元素
 **嵌套表格** :
 在单元格中嵌套一个小表格可以起到“拆分单元格”的效果. 注意要用 \multicolumn 命令配合 @{} 格式把单元格的额外边距去掉，使得嵌套的表格线能和外层的表格线正确相连：
 额外边距指的是内嵌表格的三横线与其他的元素会有一段空白的左右间距, @{} 就会使得这个边距变为0 , 同时设置 | 能够使表格有右边框. 
-```
+```tex
 \begin{tabular}{|c|c|c|} 
     \hline
     a & b & c \\
@@ -763,7 +767,7 @@ A \rule[-.4pt]{3em}{.4pt} line.
 
 **并排和子图表** :
 我们时常有在一个浮动体里面放置多张图的用法。最简单的用法就是直接并排放置，也可以通过分段或者换行命令 \\ 排版多行多列的图片。
-```
+```tex
 \begin{figure}[htbp] 
     \centering
     \includegraphics[width=...]{...}
@@ -775,7 +779,7 @@ A \rule[-.4pt]{3em}{.4pt} line.
 \end{figure}
 ```
 由于标题是`横跨一行`的，用` \caption `命令为每个图片 (浮动体内有两张以上的图片)单独生成标题就需要借助前文提到的 `\parbox 或者 minipage` 环境，将标题限制在盒子内。
-```
+```tex
 \begin{figure}[htbp] 
     \centering
     \begin{minipage}{...} 
@@ -919,12 +923,12 @@ $$c\xrightarrow[x<y]{a*b*c}d$$
 
 **括号和定界符** :
 使用 `\left` 和 `\right` 命令可令括号（定界符）的大小可变，在行间公式中常用. 
-```
+```tex
 1 + \left(\frac{1}{1-x^{2}} \right)^3 \qquad 
 \left.\frac{\partial f}{\partial t} \right|_{t=0}
 ```
 我们还可自己调节定界符的大小. 这是我们可以用 `\big`、`\bigg` 等命令生成固定大小的定界符。更常用的形式是类似 \left 的 `\bigl`、`\biggl` 等，以及类似 \right 的 `\bigr`、`\biggr` 等（\bigl 和 \bigr 不必成对出现）
-```
+```tex
 \Bigl((x+1)(x-1)\Bigr)^{2}
 ```
 效果为 : $\Bigl((x+1)(x-1)\Bigr)^{2}$
@@ -934,7 +938,7 @@ $$c\xrightarrow[x<y]{a*b*c}d$$
 
 **长公式折行** :
 amsmath 宏包的 `multline` 环境提供了书写折行长公式的方便环境。它允许用 \\ 折行，将公式编号放在最后一行。多行公式的首行左对齐，末行右对齐，其余行居中。
-```
+```tex
 \begin{multline} 
     a + b + c + d + e + f + g + h + i \\ 
         = j + k + l + m + n\\ 
@@ -945,8 +949,7 @@ amsmath 宏包的 `multline` 环境提供了书写折行长公式的方便环境
 $$\begin{multline} 
     a + b + c + d + e + f + g + h + i \\ 
         = j + k + l + m + n\\ 
-    = o + p + q + r + s
-\end{multline}
+    = o + p + q + r + s \end{multline}
 $$
 与表格不同的是，公式的最后一行不写 `\\`，如果写了，反倒会产生一个多余的空行。
 
@@ -954,7 +957,7 @@ $$
 **多行公式** :
 我们需要罗列一系列公式，并令其按照等号对齐。
 align 环境，它将公式用 & 隔为两部分并对齐。分隔符通常放在等号左边：
-```
+```tex
 \begin{align} 
     a = & b + c 
         & + f + g \\  % 分隔符放在等号的右边, 使得换行的元素也能够与等号右边对齐
@@ -963,7 +966,7 @@ align 环境，它将公式用 & 隔为两部分并对齐。分隔符通常放�
 ```
 我们仍然可以用 \notag 去掉某行的编号.   
 align 还能够对齐多组公式，除等号前的 & 之外，公式之间也用 & 分隔：
-```
+```tex
 \begin{align} 
     a &=1 & b &=2 & c &=3 \\ 
     d &=-1 & e &=-2 & f &=-5 
@@ -972,8 +975,8 @@ align 还能够对齐多组公式，除等号前的 & 之外，公式之间也�
 效果: 
 $$\begin{align} 
     a &=1 & b &=2 & c &=3 \\ 
-    d &=-1 & e &=-2 & f &=-5 
-\end{align}$$
+    d &=-1 & e &=-2 & f &=-5 \end{align}
+$$
 
 如果我们不需要按等号对齐，只需罗列数个公式，gather 将是一个很好用的环境：
 ```
@@ -988,7 +991,7 @@ align 和 gather 有对应的不带编号的版本 `align*` 和 `gather*`。
 
 **公用编号的多行公式** :
 多行公式公用一个编号，编号位于公式垂直位置居中，amsmath 宏包提供了诸如 `aligned`、`gathered` 等环境，与 equation 环境套用。以 -ed 结尾的环境用法与前一节不以 -ed 结尾的环境用法一一对应。我们仅以 aligned 举例：：
-```
+```tex
 %　效果是中间的等号对齐
 \begin{equation} 
     \begin{aligned} 
@@ -1003,7 +1006,7 @@ align 和 gather 有对应的不带编号的版本 `align*` 和 `gather*`。
 
 ## 数组和矩阵
 数组排版使用 array 环境, 用法与 tabular 环境极为类似，需要定义列格式, 并用 `\\` 换行. 数组可作为一个公式块，在外套用 `\left`、`\right` 等定界符：
-```
+```tex
  \mathbf{X} 
 = \left( 
     \begin{array}{cccc} 
@@ -1012,17 +1015,14 @@ align 和 gather 有对应的不带编号的版本 `align*` 和 `gather*`。
 \right)
 ```
 效果为：
-$$
- \mathbf{X} 
-= \left( 
+$$\mathbf{X} = \left( 
     \begin{array}{cccc} 
         x_{11} & x_{12} & \ldots & x_{1n}\\ x_{21} & x_{22} & \ldots & x_{2n}\\ \vdots & \vdots & \ddots & \vdots\\ x_{n1} & x_{n2} & \ldots & x_{nn}\\ 
-    \end{array} 
-\right)
+    \end{array} \right)
 $$
 上一节末尾介绍的 aligned 等环境也可以用定界符包裹。
 我们还可以利用空的定界符排版出这样的效果：
-```
+```tex
 |x| = \left\{ 
     \begin{array}{rl} 
         -x & \text{if } x < 0,\\ 
@@ -1049,7 +1049,7 @@ amsmath 宏包还直接提供了多种排版矩阵的环境，包括不带定界
 间隔大小 :
 ![](leanote://file/getImage?fileId=5ab34f73ab64412132000d6e)
 一个常见的用途是修正积分的被积函数 f(x) 和微元 dx 之间的距离。注意微元里的 d 用的是**直立体**：
-```
+```tex
 \int_a^b f(x)\,\mathrm{d}x
 ```
 效果为 : $\int_a^b f(x) \, \mathrm{d}x$
@@ -1072,7 +1072,7 @@ LATEX 提供了一个命令 `\boldmath` 令用户可以将整套数学字体切�
 
 ## 定理环境
 一个基本的命令 \newtheorem 提供定理环境的定义：
-```
+```tex
 \newtheorem{<type>}{<title>}[<section-name>]
 \newtheorem{<type>}[<counter>]{<title>}
 ```
@@ -1081,7 +1081,8 @@ LATEX 提供了一个命令 `\boldmath` 令用户可以将整套数学字体切�
 
 - `section name` 为章节名称，这使定理序号成为章节的下一级序号；
 - `counter` 为用 `\newcounter` 自定义的计数器名称（详见 8.3 节），定理序号由这个计数器管理。
-```
+
+```tex
 \newtheorem{mythm}{My Theorem}[section]  % 先定义一个 mythm 环境
 \begin{mythm}\label{thm:light} 
     The light speed in vaccum is $299,792,458\,\mathrm{m/s}$. 
@@ -1098,12 +1099,12 @@ amsthm 提供了 `\theoremstyle `命令支持定理格式的切换，在用 `\ne
 - remark 使用斜体标签、正体内容。
 - 另外 amsthm 还支持用带星号的 \newtheorem* 定义不带序号的定理环境：
 
-```
+```tex
 \theoremstyle{definition}   \newtheorem{law}{Law} 
 \theoremstyle{plain}        \newtheorem{jury}[law]{Jury}
 \theoremstyle{remark}       \newtheorem*{mar}{Margaret}
 ```
-```
+```tex
 % 以下例子使用上述所定义的环境
 \begin{law}\label{law:box} 
     Don’t hide in the witness box. 
