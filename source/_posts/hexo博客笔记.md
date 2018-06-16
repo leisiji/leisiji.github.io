@@ -124,6 +124,11 @@ $ git push origin hexo      // 将新分支发布在github上
 - 添加动态背景：`canvas_nest: true`。
 - 添加头像，avatar，最好是添加在线的头像 url(推荐使用新浪图床，chrome 有一个插件可以快速生成 url，但是有可能会被封杀)
 
+# markdown 相关
+
+- 在表格绘制竖线：`&#124;`，[参考](https://stackoverflow.com/questions/17319940/how-to-escape-a-pipe-char-in-a-code-statement-in-a-markdown-table/17320389#17320389)
+
+
 
 参考：
 http://kubicode.me/2016/03/18/Hexo/The-Trick-about-Hexo-Support-MutliLine-Equation-using-Mathjax/

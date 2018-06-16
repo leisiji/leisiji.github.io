@@ -62,7 +62,7 @@ a 文件是库文件，头文件对应的 c 代码编译成了 a 文件。
 
 ## 设备端代码修改
 修改 `aliyun_config.h`。注意下面的 XX 的修改：
-```
+```C
 #define PRODUCT_KEY             "XX"  // type:string
 #define DEVICE_NAME             "XX"  // type:string
 #define DEVICE_SECRET           "XX"  // type:string
@@ -72,7 +72,7 @@ a 文件是库文件，头文件对应的 c 代码编译成了 a 文件。
 ```
 
 设备上传数据在 mqtt.c 中的 `mqttclient()` 完成：
-```
+```C
 u8_t temperature;
 u8_t humidity;
 u8_t *data;
@@ -116,7 +116,7 @@ rc = IOT_MQTT_Publish(pclient, TOPIC_DATA, &topic_msg);
 我们从设备本身信息中抽取设备名(deviceName)。
 从温湿度采集设备上报数据消息的 payload 中获取温度值(temperature)和湿度值(humidity)。
 添加以下的规则引擎（注意去掉 SELECT 和 FROM）：
-```
+```C
 SELECT
 //attribute('tag') as tag,
 //attribute('deviceISN') as isn,
