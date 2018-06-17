@@ -871,7 +871,7 @@ A \rule[-.4pt]{3em}{.4pt} line.
     \qquad
 .......
 ```
-当我们需要更进一步，给每个图片定义小标题时，就要用到 subfig 宏包的功能了。比如：
+当需要更进一步，给每个图片定义小标题时，就要用到 subfig 宏包的功能了。比如：
 ```tex
 \begin{figure}[htbp]
     \centering
@@ -1143,7 +1143,7 @@ $$\mathbf{X} = \left(
     \end{array} \right)
 $$
 上一节末尾介绍的 aligned 等环境也可以用定界符包裹。
-我们还可以利用空的定界符排版出这样的效果：
+还可以利用空的定界符排版出这样的效果：
 ```tex
 |x| = \left\{ 
     \begin{array}{rl} 
@@ -1293,7 +1293,7 @@ amsthm 还提供了一个 proof 环境用于排版定理的证明过程。proof 
     p &= \gamma m_0v \qedhere 
 \end{align*}
 ```
-如果有使用实心符号作为证毕符号的需求，需要自行用 \renewcommand 命令修改, 我们可以利用标尺盒子来生成一个适当大小的“实心矩形”：
+如果有使用实心符号作为证毕符号的需求，需要自行用 \renewcommand 命令修改, 可以利用标尺盒子来生成一个适当大小的“实心矩形”：
 ```tex
 \renewcommand{\qedsymbol}% 
             {\rule{1ex}{1.5ex}}
@@ -1383,7 +1383,7 @@ LATEX 还提供了一个基础的命令 `\fontsize` 用于设定任意大小的�
 字体编码对于 LATEX 用户来讲是一个比较难懂的概念。
 
 - 它指定了一个字体里面包含了哪些符号、符号如何编码等等细节。
-- 需要明确一点：字体编码并不与我们在 2.1.1 等小节叙述的 ASCII 编码等一一对应。
+- 需要明确一点：字体编码并不与在 2.1.1 等小节叙述的 ASCII 编码等一一对应。
 
 常见的正文字体编码有 OT1 和 T1 等。
 
@@ -1407,22 +1407,24 @@ fontspec 宏包调用 ttf 或 otf 格式字体，就不要再使用 fontenc 宏�
 ![](/images/font_package.png)
 
 **使用 fontspec 宏包更改字体 (xelatex)** :
-xelatex 编译命令能够支持直接调用系统安装的 .ttf 或 .otf 格式字体。相比于上一小 节，我们有了更多修改字体的余地。
-xelatex 命令下支持用户调用字体的宏包是 fontspec。宏包提供了几个设置全局字体的命
-令，设置 \rmfamily 等对应命令的默认字体：
+xelatex 编译命令能够支持直接调用系统安装的 `.ttf` 或 `.otf` 格式字体。相比于上一小节有了更多修改字体的余地。
+xelatex 下支持用户调用字体的宏包是 fontspec，提供了几个设置全局字体的命令，设置 `\rmfamily` 等对应命令的默认字体：
 ```tex
 \setmainfont[font features]{font name} 
 \setsansfont[font features]{font name} 
 \setmonofont[font features]{font name}
 ```
-其中 font name 使用字体的文件名（带扩展名）或者字体的英文名称。font features 用来手 动配置对应的粗体或斜体，比如为 Windows 下的无衬线字体 Arial 配置粗体和斜体（通常情况 下自动检测并设置对应的粗体和斜体，无需手动指定）：
+
+- 其中 font name 使用字体的文件名（带扩展名）或者字体的英文名称。
+- font features 用来手动配置对应的粗体或斜体，比如为 Windows 下的无衬线字体 Arial 配置粗体和斜体（通常情况下自动检测并设置对应的粗体和斜体，无需手动指定）：
+
 ```tex
-\setsansfont    [BoldFont={Arial Bold}, ItalicFont={Arial Italic}]  {Arial}
+\setsansfont [BoldFont={Arial Bold}, ItalicFont={Arial Italic}] {Arial}
 ```
 font features 还能配置字体本身的各种特性，这里不再赘述。
-需要注意的是：fontspec 宏包会覆盖数学字体设置。
+需要注意的是：fontspec 宏包会覆盖数学字体设置：
 
-- 需要调用表 5.4 中列出的一些数学字体宏包时，应当在调用 fontspec 宏包时指定 no-math 选项。
+- 需要调用表 5.4 中列出的一些数学字体宏包时，应当在调用 fontspec 宏包时指定 `no-math` 选项。
 - fontspec 宏包可能被其它宏包或文档类（如 xeCJK、ctex 文档类）自动调用时，则在文档开头的 `\documentclass` 里指定 `no-math`选项。
 
 
@@ -1450,7 +1452,7 @@ font features 还能配置字体本身的各种特性，这里不再赘述。
 |ex |当前字号下小写字母 x 的高度，常用于垂直距离的设定|
 
 在一些情况下还会用到可伸缩的“弹性长度”，如 `12pt plus 2pt minus 3pt` 表示基础长度为 12pt，可以伸展到 14pt ，也可以收缩到 9pt。
-如果需要自定义长度变量：
+自定义长度变量：
 ```tex
 \newlength{\length command}
 ```
@@ -1459,7 +1461,6 @@ font features 还能配置字体本身的各种特性，这里不再赘述。
 \setlength{\length command}{length}
 \addtolength{\length command}<length}
 ```
-
 
 **行距** :
 前文提到过 `\fontsize` 命令可以为字号设定对应的行距，但很少那么用。更常用的办法是在导言区使用 `\linespread` 命令，
@@ -1478,13 +1479,13 @@ font features 还能配置字体本身的各种特性，这里不再赘述。
 }
 % 这一段的行距会增加, 但是下一段的行距会变会正常值
 ```
-字号的改变是即时生效的，而行距的改变直到文字**分段**时才生效。
 
+> 字号的改变是即时生效的，而行距的改变直到文字分段时才生效。
 
 **段落格式** :
 以下长度分别为段落的左缩进、右缩进和首行缩进：
 ```tex
-\setlength{\leftskip}{20pt} 
+\setlength{\leftskip}{20pt}
 \setlength{\rightskip}{20pt} 
 \setlength{\parindent}{2em}
 % \setlength 命令同样是要在分组{}里面运行
@@ -1496,7 +1497,6 @@ font features 还能配置字体本身的各种特性，这里不再赘述。
 - 多个 `\indent` 命令可以累加缩进量。
 
 LATEX 还默认在 `\chapter`、`\section` 等章节标题**命令之后的第一段**不缩进。
-
 
 **水平间距** :
 LATEX 默认为将单词之间的“空格”转化为水平间距。如果需要手动插入额外的水平间距，可使用 `\hspace{length}`：
@@ -1517,60 +1517,69 @@ This\hspace{1.5cm}is a space of 1.5 cm.
 ```tex
 \vspace{length}
 ```
-`\vspace` 的间距在一页的顶端或底端可能被“吞掉”，类似 `\hspace` 在一行的开头和末尾那样。对应地，`\vspace*` 命令产生不会因断页而消失的垂直间距。
-在段落内的两行之间增加垂直间距，一般通过给断行命令 `\\ `加可选参数，如 `\\[6pt]` 或 `\\*[6pt]`。`\vspace` 也可以在段落内使用：
+`\vspace` 的间距在一页的顶端或底端可能被“吞掉”，类似 `\hspace` 在一行的开头和末尾那样。
+
+- 而 `\vspace*` 产生不会因断页而消失的垂直间距。
+- 在段落内的两行之间增加垂直间距，一般通过给断行命令 `\\ `加可选参数，如 `\\[6pt]` 或 `\\*[6pt]`。
+
+`\vspace` 也可以在段落内使用：
 ```tex
 add \vspace{12pt} some spaces 
 between lines in a paragraph.
 % 上下两行的垂直间距增大, 但是在同一段中
 ```
-另外 LATEX 还提供了`\bigskip, \medskip, \smallskip` 来增加预定义长度的垂直间距。
+`\bigskip, \medskip, \smallskip` 可以增加预定义长度的垂直间距。
 ```tex
-\parbox[t]{3em}{TeX\par TeX} 
-\parbox[t]{3em}{TeX\par\smallskip TeX} 
-\parbox[t]{3em}{TeX\par\medskip TeX} 
-\parbox[t]{3em}{TeX\par\bigskip TeX}
+\parbox[t]{3em}{TeX \par TeX} 
+\parbox[t]{3em}{TeX \par \smallskip TeX} 
+\parbox[t]{3em}{TeX \par \medskip TeX} 
+\parbox[t]{3em}{TeX \par \bigskip TeX}
 ```
 
 ## 页面和分栏
-LATEX 允许通过为文档类指定选项来控制纸 张的大小（见表 1.2），包括 a4paper、letterpaper 等等，并配合字号设置了适合的页边距。
-但是，如果你想要直接设置页边距等参数，着实是一件麻烦事。我们根据图 `5.1` 将各个方向 的页边距计算公式给出（以奇数页为例）：
+LATEX 允许通过为文档类指定选项来控制纸张的大小（见表 1.2），包括 a4paper、letterpaper 等等，并配合字号设置了适合的页边距。
+但是，如果要直接设置页边距等参数，着实是一件麻烦事。根据图 5.1 将各个方向的页边距计算公式给出（以奇数页为例）：
 ```tex
 left-margin = 1in + \hoffset + \oddsidemargin
 right-margin = \paperwidth − left-margin − \textwidth 
 top-margin = 1in + \voffset + \topmargin + \headheight + \headsep 
 bottom-margin = \paperheight − top-margin − \textheight
 ```
-幸好 `geometry` 宏包提供了设置页面参数的简便方法，能够帮我们完成背后繁杂的计算。
+`geometry` 宏包提供了设置页面参数的简便方法，能够完成背后繁杂的计算。
 
 
 **利用 geometry 宏包设置页面参数** :
-geometry 宏包的调用方式类似于 graphicx，在 latex + dvipdfmx 命令下需要指定选项 dvipdfm （注意这里不是 dvipdfmx）；pdflatex 和 xelatex 编译命令下不需要。
-你既可以调用 geometry 宏包然后用其提供的 \geometry 命令设置页面参数：
+geometry 宏包的调用方式类似于 graphicx，
+
+- 在 latex + dvipdfmx 命令下需要指定选项 dvipdfm （注意这里不是 dvipdfmx）；
+- pdflatex 和 xelatex 编译命令下不需要。
+
 ```tex
-\usepackage{geometry} 
+\usepackage{geometry}
 \geometry{geometry-settings}
 
 % 也可以将参数指定为宏包的选项：
 \usepackage[geometry-settings]{geometry}
 ```
 其中 `geometry-settings` 多以 `key=value` 的形式组织。
-比如，符合 Microsoft Word 习惯的页面设定是 A4 纸张，上下边距 1 英寸，左右边距 1.25 英寸，于是我们可以通过如下两种等效的方式之一设定页边距：
+比如，符合 Microsoft Word 习惯的页面设定是 A4 纸张，上下边距 1 英寸，左右边距 1.25 英寸，于是可以通过如下两种等效的方式之一设定页边距：
 ```tex
 \usepackage[left=1.25in,right=1.25in, top=1in,bottom=1in]{geometry} 
 % or like this:
 \usepackage[hmargin=1.25in,vmargin=1in]{geometry}
 ```
-又比如，需要设定周围的边距一致为 1.25 英寸，可以用更简单的语法：
+又如要设定周围的边距一致为 1.25 英寸，可以用更简单的语法：
 ```tex
-\usepackage[inner=1in,outer=1.25in]{geometry}
+\usepackage[inner=1in, outer=1.25in]{geometry}
 ```
 geometry 宏包本身也能够修改纸张大小、页眉页脚高度、边注宽度等等参数。
 
 
 **页面内容的垂直对齐** :
-LATEX 默认将页面内容在垂直方向分散对齐。对于有大量图表的文档，许多时候想要做到排版匀称的页面很困难，垂直分散对齐会造成某些页面的垂直间距过宽，还可能报大量的 Underfull \vbox 消息。
-LATEX 还提供了另一种策略：将页面内容向顶部对齐，给底部留出高度不一的空白。在导言 区或者适合的位置使用以下命令开启顶部对齐的效果：
+LATEX 默认将页面内容在垂直方向分散对齐。
+对于有大量图表的文档，许多时候想要做到排版匀称的页面很困难，垂直分散对齐会造成某些页面的垂直间距过宽，还可能报大量的 `Underfull \vbox` 消息。
+LATEX 还提供了另一种策略：将页面内容向顶部对齐，给底部留出高度不一的空白。
+在导言区或者适合的位置使用以下命令开启顶部对齐的效果：
 ```tex
 \raggedbottom
 ```
@@ -1578,21 +1587,28 @@ LATEX 还提供了另一种策略：将页面内容向顶部对齐，给底部�
 
 
 **分栏** :
-标准文档类的全局选项 onecolumn、twocolumn 可控制 全文分单栏或双栏排版。LATEX 也提供了切换单/双栏排版的命令：
+标准文档类的全局选项 onecolumn、twocolumn 可控制全文分单栏或双栏排版。LATEX 也提供了切换单/双栏排版的命令：
 ```tex
 \onecolumn 
 \twocolumn[one-column top material]
 ```
-`\twocolumn` 支持带一个可选参数，用于排版双栏之上的一部分单栏内容。
-切换单/双栏排版时总是会另起一页（`\clearpage`）。在双栏模式下使用` \newpage `会换栏而不是换页；`\clearpage` 则能够换页。
-双栏排版时每一栏的宽度为 `\columnwidth`，它由 `\textwidth` 减去 `\columnsep` 的差除以 2 得到。两栏之间还有一道竖线，宽度为 `\columnseprule`，默认为零，也就是看不到竖线。
-一个比较好用的分栏解决方案是 multicol，它提供了简单的 multicols 环境（注意不要写成 multicol 环境）自动产生分栏，如以下环境将内容分为 3 栏：
+
+- `\twocolumn` 支持带一个可选参数，用于排版双栏之上的一部分单栏内容。
+- 切换单/双栏排版时总是会另起一页（`\clearpage`）。
+    - 在双栏模式下使用` \newpage` 会换栏而不是换页；
+    - `\clearpage` 则能够换页。
+- 双栏排版时每一栏的宽度为 `\columnwidth`，它由 `\textwidth` 减去 `\columnsep` 的差除以 2 得到。
+    - 两栏之间还有一道竖线，宽度为 `\columnseprule`，默认为零，也就是看不到竖线。
+    - 一个比较好用的分栏解决方案是 multicol，它提供了简单的 multicols 环境（注意不要写成 multicol）自动产生分栏，如以下环境将内容分为 3 栏：
+
 ```tex
 \begin{multicols}{3}
 \end{multicols}
 ```
-multicol 宏包能够在一页之中切换单栏/多栏，也能处理跨页的分栏，且各栏的高度分布平衡。
-但代价是在 multicols 环境中无法正常使用 table 和 figure 等浮动体环境，它会直接让 浮动体丢失。multicols 环境中只能用跨栏的 table* 和 figure* 环境，或者用 float 宏包提供 的 H 参数固定浮动体的位置。
+
+- multicol 宏包能够在一页之中切换单栏/多栏，也能处理跨页的分栏，且各栏的高度分布平衡。
+- 但代价是在 multicols 环境中无法正常使用 `table` 和 `figure` 等浮动体环境，它会直接让浮动体丢失。
+- multicols 环境中只能用跨栏的 `table*` 和 `figure*` 环境，或者用 float 宏包提供 的 H 参数固定浮动体的位置。
 
 
 ## 页眉页脚
@@ -1622,13 +1638,13 @@ page-style 参数为样式的名称，在 LATEX 里预定义了四类样式 :
 
 
 **手动更改页眉页脚的内容** :
-对于 headings 或者 myheadings 样式，LATEX 允许用户使用命令手动修改页眉上面的内容， 特别是因为使用了 `\chapter*` 等命令而无法自动生成页眉页脚的情况：
+对于 headings 或者 myheadings 样式，LATEX 允许用户使用命令手动修改页眉上面的内容，特别是因为使用了 `\chapter*` 等命令而无法自动生成页眉页脚的情况：
 ```tex
 \markright{right-mark} 
 \markboth{left-mark}{right-mark}
 ```
 在双面排版、headings / myheadings 页眉页脚样式下，left-mark 和 right-mark 的内容分别预期出现在左页（偶数页）和右页（奇数页）。
-事实上 `\chapter`、`\section` 等命令内部也使用 `\markboth` 或者 `\markright` 写页眉。LATEX 默认将页眉的内容都转为大写字母。如果你不喜欢这样，可以尝试以下代码:
+事实上 `\chapter`、`\section` 等命令内部也使用 `\markboth` 或者 `\markright` 写页眉。LATEX 默认将页眉的内容都转为大写字母。如果不喜欢这样，可以:
 ```tex
 \renewcommand\chaptermark[1]{% 
     \markboth{Chapter \thechapter\quad #1}{}} 
@@ -1638,8 +1654,8 @@ page-style 参数为样式的名称，在 LATEX 里预定义了四类样式 :
 
 
 **fancyhdr 宏包** :
-fancyhdr 宏包改善了页眉页脚样式的定义方式，允许我们将内容自由安置在页眉和页脚的 左、中、右三个位置，还为页眉和页脚各加了一条横线。
-fancyhdr 自定义了样式名称 fancy。使用 fancyhdr 宏包定义页眉页脚之前，通常先用 \pagestyle{fancy} 调用这个样式。在 fancyhdr 中定义页眉页脚的命令为：
+fancyhdr 宏包改善了页眉页脚样式的定义方式，允许将内容自由安置在页眉和页脚的左、中、右三个位置，还为页眉和页脚各加了一条横线。
+fancyhdr 自定义了样式名称 fancy。使用 fancyhdr 宏包定义页眉页脚之前，通常先用 `\pagestyle{fancy}` 调用这个样式。在 fancyhdr 中定义页眉页脚的命令为：
 ```tex
 \fancyhead[position]{...} 
 \fancyfoot[position]{...}
@@ -1669,16 +1685,19 @@ LATEX 提供了最基本的 \cite 命令用于在正文中引用参考文献：
 ```tex
 \cite{citation}
 ```
-citation 为引用的参考文献的标签，类似 `\ref` 里的参数；`\cite` 带一个可选参数，为引用 的编号后加上额外的内容，如 `\cite[page 22]{pa}` 可能得到形如 [13, page 22] 这样的引用。
+
+- citation 为引用的参考文献的标签，类似 `\ref` 里的参数；
+- `\cite` 带一个可选参数，为引用的编号后加上额外的内容，如 `\cite[page 22]{pa}` 可能得到形如 [13, page 22] 这样的引用。
+
 参考文献由 thebibliography 环境包裹。每条参考文献由 `\bibitem` 开头，其后是参考文献本身的内容：
 ```tex
 \bibitem[item number]{citation}
 ```
-item number 自定义参考文献的序号，如果省 略，则按自然排序给定序号。
+item number 自定义参考文献的序号，如果省略，则按自然排序给定序号。
 
 
 **BIBTEX 数据库** :
-BIBTEX 数据库以 .bib 作为扩展名，其内容是若干个文献条目，每个条目的格式为：
+BIBTEX 数据库以 `.bib` 作为扩展名，其内容是若干个文献条目，每个条目的格式为：
 ```tex
 @type{citation, 
     key1    = {value1}, 
@@ -1704,29 +1723,30 @@ type 为文献的类别，如 article 为学术论文，book 为书籍，incolle
     number = {7}, 
     pages = {114-120}}
 ```
-所有类别的文献条目格式请参考 CTAN://biblio/bibtex/base/btxdoc.pdf
-多数时候，我们无需自己手写 BIBTEX 文献条目。从 Google Scholar 或者期刊/数据库的网站上都能够导出 BIBTEX 文献条目
+所有类别的文献条目格式请参考[这里](CTAN://biblio/bibtex/base/btxdoc.pdf)
+多数时候，无需自己手写 BIBTEX 文献条目。从 Google Scholar 或者期刊/数据库的网站上都能够导出 BIBTEX 文献条目。
 
 
 **BIBTEX 样式** :
-参考文献的写法在不同文献里千差万别，包括作者、标题、年份等各项的顺序和字体样式、 文献在列表中的排序规则等。BIBTEX 用样式（style）来管理参考文献的写法。BIBTEX 提供了几个预定义的样式，如 plain, unsrt, alpha 等。如果使用期刊模板的话，可能会提供自用的样式。 样式文件以 .bst 为扩展名。
-使用样式文件的方法是在源代码内（一般在导言区）使用 \bibliographystyle 命令：
+参考文献的写法在不同文献里千差万别，包括作者、标题、年份等各项的顺序和字体样式、文献在列表中的排序规则等。
+BIBTEX 用样式（style）来管理参考文献的写法。BIBTEX 提供了几个预定义的样式，如 plain, unsrt, alpha 等。如果使用期刊模板的话，可能会提供自用的样式。样式文件以 `.bst` 为扩展名。
+使用样式文件的方法是在源代码内（一般在导言区）使用 `\bibliographystyle`：
 ```tex
 \bibliographystyle{bst-name}
 ```
-bst-name 为 .bst 样式文件的名称，不要带 .bst 扩展名。
-我们以上一节给出的数据条目为例，使用 `\bibliographystyle` 命令选择不同的参考文 献样式，效果大致如下。
+bst-name 为 `.bst` 样式文件的名称，不要带 `.bst` 扩展名。
+以上一节给出的数据条目为例，使用 `\bibliographystyle` 选择不同的参考文献样式，效果大致如下。
+
 ![](/images/math4.png)
 
-
-
 **使用 BIBTEX 排版参考文献** :
-第一步：我们当然需要一份 BIBTEX 数据库，假设数据库文件名为 books.bib，和 LATEX 源代码一般位于同一个目录下。
-第二步：在源代码中添加必要的命令。假设源代码名为 demo.tex
 
-1. 首先需要使用命令 `\bibliographystyle` 设定参考文献的格式。
-2. 其次，在正文中引用参考文献。BIBTEX 程序在生成参考文献列表的时候，通常只列出用了 `\cite` 命令引用的那些。如果需要列出未被引用的文献，则需要 `\nocite{citation}` 命令； 而 `\nocite{*}` 则让所有未被引用的文献都列出。
-3. 再次，在你需要列出参考文献的位置，使用 \bibliography 命令代替 thebibliography 环境：
+- 第一步：当然需要一份 BIBTEX 数据库，假设数据库文件名为 books.bib，和 LATEX 源代码一般位于同一个目录下。
+- 第二步：在源代码中添加必要的命令。假设源代码名为 demo.tex
+
+    1. 首先需要使用命令 `\bibliographystyle` 设定参考文献的格式。
+    2. 其次，在正文中引用参考文献。BIBTEX 程序在生成参考文献列表的时候，通常只列出用了 `\cite` 命令引用的那些。如果需要列出未被引用的文献，则需要 `\nocite{citation}`；而 `\nocite{*}` 则让所有未被引用的文献都列出。
+    3. 再次，在要列出参考文献的位置，使用 `\bibliography` 代替 thebibliography 环境：
 
 ```tex
 \documentclass{article} 
@@ -1741,13 +1761,13 @@ and \cite{citation2} \ldots
 \bibliography{books} % 参数为是 BIBTEX 数据库的文件名，不要带 .bib 扩展名。
 \end{document}
 ```
-注意：`\bibliographystyle` 和 `\bibliography` 命令缺一不可，没有这两个命令，使用 BIBTEX 生成参考文献列表的时候会报错。
-第三步：写好了以上两个文件之后，我们就可以开始编译了。
 
-1. 首先使用 pdflatex 或 xelatex 等命令编译 LATEX 源代码 demo.tex；
-2. 接下来用 bibtex 命令处理 demo.aux 辅助文件记录的参考文献格式、引用条目等信息。 bibtex 命令处理完毕后会生成 demo.bbl 文件，内容就是一个 thebibliography 环境；
-3. 再使用 pdflatex 或 xelatex 等命令把源代码 demo.tex 编译两遍，读入参考文献并正确生成引用
+- 第三步：写好了以上两个文件之后，就可以开始编译了。
+    1. 首先使用 pdflatex 或 xelatex 等命令编译 LATEX 源代码 demo.tex；
+    2. 接下来用 bibtex 命令处理 demo.aux 辅助文件记录的参考文献格式、引用条目等信息。 bibtex 命令处理完毕后会生成 demo.bbl 文件，内容就是一个 thebibliography 环境；
+    3. 再使用 pdflatex 或 xelatex 等命令把源代码 demo.tex 编译两遍，读入参考文献并正确生成引用
 
+注意：`\bibliographystyle` 和 `\bibliography` 缺一不可，没有这两个，使用 BIBTEX 生成参考文献列表的时候会报错。
 
 **natbib 宏包** :
 时下许多学术期刊比较喜欢使用人名——年份的引用方式，形如 (Alice et al., 2013)。natbib 宏包提供了对这种“自然”引用方式的处理。 
@@ -1763,7 +1783,7 @@ natbib 宏包同样也支持数字引用，并且支持将引用的序号压缩�
 调用 natbib 宏包时指定以上选项后，连续引用多篇文献时，会生成形如 (3-7) 的引用而不是 (3, 4, 5, 6, 7)。
 natbib 宏包还有更多选项和用法，比如默认的引用是用小括号包裹的，可指定 square 选项改为中括号.
 
-##索引和 makeindex 工具
+## 索引和 makeindex 工具
 要使用索引，须经过这么几个步骤:
 
 1. 在 LATEX 源代码的导言区调用 makeidx 宏包，并使用 `\makeindex` 命令开启索引的收集：`\usepackage{makeidx}`, `\makeindex`
@@ -1800,7 +1820,7 @@ LATEX 原生不支持颜色，它依赖 color 宏包或者 xcolor 宏包.
 {\color{red} 红色} \\ 
 {\color{blue} 蓝色}
 ```
-color 宏包仅定义了 8 种颜色名称，xcolor 补充了一些，总共有 19 种, 自行查书. 
+color 宏包仅定义了 8 种颜色名称，xcolor 补充了一些，总共有 19 种, 自行查阅。 
 xcolor 还支持将颜色通过表达式混合或互补：
 ```tex
 \large\sffamily 
@@ -1810,7 +1830,7 @@ xcolor 还支持将颜色通过表达式混合或互补：
     \color{black}黑色}\\ 
 {\color{-red}红色的互补色}
 ```
-我们还可以通过命令自定义颜色名称，注意这里的 color-mode 是必选参数：
+还可以通过命令自定义颜色名称，注意这里的 color-mode 是必选参数：
 ```tex
 \definecolor{color-name}{color-mode}{code}
 ```
@@ -1818,8 +1838,8 @@ xcolor 还支持将颜色通过表达式混合或互补：
 
 
 **带颜色的文本和盒子** :
-原始的 \color 命令类似于字体命令 \bfseries，它使之后排版的内容全部变成指定的颜色，所以直接使用时通常要加花括号分组。color / xcolor 宏包都定义了一些方便用户使用的带颜色元素。
-输入带颜色的文本可以用类似 `\textbf` 的命令：
+原始的 `\color` 类似于 `\bfseries`，它使之后排版的内容全部变成指定的颜色，所以直接使用时通常要加花括号分组。color / xcolor 宏包都定义了一些方便用户使用的带颜色元素。
+输入带颜色的文本可以用类似 `\textbf`：
 ```tex
 \textcolor[color-mode]{code}{text} 
 \textcolor{color-name}{text}
@@ -1859,8 +1879,8 @@ hyperref 宏包提供了直接书写超链接的命令，用于在 PDF 中生成
 \url{url} 
 \nolinkurl{url}
 ```
-`\url` 和 `\nolinkurl `都生成可以点击的 URL，区别是前者有彩色，后者没有。在 \url 命令中作为参数的 URL 里，可直接输入如 %、& 这样的特殊符号。
-我们也可以像网页一样，把一段文字赋予其“超链接”的作用：
+`\url` 和 `\nolinkurl `都生成可以点击的 URL，区别是前者有彩色，后者没有。在 `\url` 中作为参数的 URL 里，可直接输入如 `%`、`&` 这样的特殊符号。
+也可以像网页一样，把一段文字赋予其“超链接”的作用：
 ```tex
 \href{url}{text}
 % 比如:
@@ -1879,7 +1899,7 @@ hyperref{label}{text}
 
 
 **PDF 书签** :
-对于章节命令 \chapter、\section
+对于章节命令 `\chapter`、`\section`
 等，默认情况下会为 PDF 自动生成书签。和交叉引用、索引等类似，生成书签也需要多次编译源代码，第一次编译将书签记录写入 .out 文件，第二次编译才正确生成书签。
 hyperref 还提供了手动生成书签的命令：
 ```tex
@@ -1905,13 +1925,14 @@ bookmark 为书签名称，anchor 为书签项使用的锚点（类似交叉引�
     . . . . . .
 \end{tikzpicture}
 ```
-前一种用法为 \tikz 带单条绘图命令，以分号结束，一般用于在文字之间插入简单的图形； 后两种用法较为常见，使用多条绘图命令，可以在 figure 等浮动体中使用。
+
+- 前一种用法为 `\tikz` 带单条绘图命令，以分号结束，一般用于在文字之间插入简单的图形；
+- 后两种用法较为常见，使用多条绘图命令，可以在 figure 等浮动体中使用。
 
 
 **TikZ 坐标和路径** :
 TikZ 用直角坐标系或者极坐标系描述点的位置, (x,y) 或者 ($\theta$ : r). 
-我们还可以为某个点命名：\coordinate (A) at (coordinate) 然后就可以使用 (A) 作为
-点的位置了。
+还可以为某个点命名：\coordinate (A) at (coordinate) 然后就可以使用 (A) 作为点的位置了。
 ```tex
 % 以下命令画出了三条直线
 \begin{tikzpicture} 
@@ -2008,7 +2029,7 @@ TikZ 通过 pgffor 功能宏包实现了简单的循环功能，语法为：
 ```tex
 \foreach \a in {list} {commands}
 ```
-上述语法定义了 `\a `为变量，在 {commands} 中使用 `\a` 完成循环。
+上述语法定义了 `\a `为变量，在 `{commands}` 中使用 `\a` 完成循环。
 ```tex
 % 下列例子画出一条尺子
 \begin{tikzpicture} 
@@ -2034,7 +2055,7 @@ TikZ 通过 pgffor 功能宏包实现了简单的循环功能，语法为：
 ```tex
 \newcommand{\name}[num]{definition}
 ```
-\name 的 \ 是不可以省略的, num 是可选的，用于指定新命令所需的参数数目 (最多 9 个), 如果缺省可选参数，默认就是 0，也就是新建的命令不带任何参数。
+`\name` 的 `\` 是不可以省略的, num 是可选的，用于指定新命令所需的参数数目 (最多 9 个), 如果缺省可选参数，默认就是 0，也就是新建的命令不带任何参数。
 例如 :
 ```tex
 % \tnss。这个命令是本手册英文名称 “The Not So Short Introduction to LATEX2ε” 的简写。
@@ -2042,7 +2063,8 @@ TikZ 通过 pgffor 功能宏包实现了简单的循环功能，语法为：
 \newcommand{\tnss}{The not so Short Introduction to \LaTeXe}
 This is ‘‘\tnss’’ \ldots{} ‘‘\tnss’’ % 显示新命令
 ```
-第二个例子演示了如何定义一个带参数的命令。在命令的定义中，标记 #1 代表指定的参数。 如果想使用多个参数，可以依次使用 #2、⋯⋯、#9 等标记。
+第二个例子演示了如何定义一个带参数的命令。在命令的定义中，标记 #1 代表指定的参数。
+如果想使用多个参数，可以依次使用 #2、...、#9 等标记。
 ```tex
 \newcommand{\txsit}[1] 
     {This is the \emph{#1} 
@@ -2059,7 +2081,7 @@ This is ‘‘\tnss’’ \ldots{} ‘‘\tnss’’ % 显示新命令
 ```tex
 \newenvironment{name}[num]{before}{after}
 ```
-同样地，\newenvironment 命令有一个可选的参数。在 before 中的内容将在此环境包含的文本之前处理，而在 after 中的内容将在遇到 \end{name} 命令时处理。
+同样地，`\newenvironment` 有一个可选的参数。在 before 中的内容将在此环境包含的文本之前处理，而在 after 中的内容将在遇到 `\end{name}` 命令时处理。
 ```tex
 \newenvironment{king} 
 {\rule{1ex}{1ex}        % before 的内容
@@ -2074,8 +2096,8 @@ This is ‘‘\tnss’’ \ldots{} ‘‘\tnss’’ % 显示新命令
 
 
 ## 编写自己的宏包和文档类
-写一个宏包的基本工作就是将原本在你的文档导言区里很长的内容拷贝到另一个文件中去， 这个文件需要以 .sty 作扩展名。还需要在最前面加上 `\ProvidesPackage{package name}`
-宏包的一个最简示例 :
+写一个宏包的基本工作就是将原本在你的文档导言区里很长的内容拷贝到另一个文件中去，这个文件需要以 .sty 作扩展名。还需要在最前面加上 `\ProvidesPackage{package name}`
+宏包的一个最简示例：
 ```tex
 % Demo Package by Tobias Oetiker 
 \ProvidesPackage{demopack} % 
@@ -2085,18 +2107,22 @@ This is ‘‘\tnss’’ \ldots{} ‘‘\tnss’’ % 显示新命令
         {The \emph{#1} Short Introduction to \LaTeXe}
     \newenvironment{king}{\begin{quote}}{\end{quote}}
 ```
-在宏包中调用其它宏包 :
+在宏包中调用其它宏包：
 ```tex
 \RequirePackage[options]{package name}
 ```
 
 
 **编写自己的文档类** :
-当你更进一步，需要编写自己的文档类，如论文模板等，问题就稍稍麻烦了一些。首先，自己的文档类以 .cls 作扩展名，开头使用 \ProvidesClass 命令：
+当更进一步，需要编写自己的文档类，如论文模板等，问题就稍稍麻烦了一些。首先，自己的文档类以 `.cls` 作扩展名，开头使用 `\ProvidesClass`：
 ```tex
 \ProvidesClass{class name}
 ```
-但是有了上述命令和和你之前学到的 \newcommand 等，还并不能完成一个文档类的编写，因为诸如 \chapter、\section 等等许多常用的命令都是在文档类中定义的。事实上，许多时候我们只需要像调用宏包那样调用一个基本的文档类，省去许多不必要的麻烦。在你的文档类中调用其它文档类的命令是 `\LoadClass` ，用法和 \documentclass 十分相像：
+
+- 但是有了上述命令和之前学到的 `\newcommand` 等，还并不能完成一个文档类的编写，因为诸如 `\chapter`、`\section` 等等许多常用的命令都是在文档类中定义的。
+- 事实上，许多时候只需要像调用宏包那样调用一个基本的文档类，省去许多不必要的麻烦。
+
+在文档类中调用其它文档类的命令是 `\LoadClass` ，用法和 `\documentclass` 十分相像：
 ```tex
 \LoadClass[options]{package name}
 ```
@@ -2108,7 +2134,12 @@ LATEX 对文档元素自动计数的能力：章节符号、列表、图表都�
 \newcounter{counter name} 
 \newcounter{counter name}[parent counter name] % parent name 设置上级计数器, 比如标题可以有两级
 ```
-以下命令修改计数器的数值，`\setcounter` 将数值设为 number；`\addtocounter` 将数值加上 number；`\stepcounter` 将数值加一，并将所有下级计数器归零。
+以下命令修改计数器的数值，
+
+- `\setcounter` 将数值设为 number；
+- `\addtocounter` 将数值加上 number；
+- `\stepcounter` 将数值加一，并将所有下级计数器归零。3
+
 ```tex
 \setcounter{counter name}{number} 
 \addtocounter{counter name}{number} 
@@ -2153,7 +2184,7 @@ TEX Live 默认安装所有宏包，而 MikTEX 的安装程序只包含了若干
 如非万不得已，尽量不要手动安装宏包。
 
 # 排除错误、寻求帮助
-比如说我们有一个明显出错的例子： 
+比如说有一个明显出错的例子： 
 ```tex
 \documentclass{article}
 \begin{document} Test 
@@ -2166,4 +2197,4 @@ TEX Live 默认安装所有宏包，而 MikTEX 的安装程序只包含了若干
 l.3 Test \LaTEx 
             {} and it’s friends.
 ```
-这种错误信息分两部分，前一部分提示了错误的信息，后一部分指出了错误发生的行号，以及通过错落的文字告知发生错误的命令所在位置。如上错误显示 \LaTEx 位置发生了错误，错误信息是“未定义的控制序列”，意思是 \LaTEx 是 TEX 编译器无法识别的一个命令，很显然是我们把 \LaTeX 的大小写写错了。
+这种错误信息分两部分，前一部分提示了错误的信息，后一部分指出了错误发生的行号，以及通过错落的文字告知发生错误的命令所在位置。如上错误显示 `\LaTEx` 位置发生了错误，错误信息是“未定义的控制序列”，意思是 `\LaTEx` 是 TEX 编译器无法识别的一个命令，很显然是把 `\LaTeX` 的大小写写错了。
