@@ -20,7 +20,7 @@ tags:
 \begin{document} 
 \end{document}
 ```
-在 `\documentclass` 和 `\begin{document}` 之间的位置称为导言区，除了使用 `\usepackage` 调用宏包之外，一些对文档的全局设置命令也在这里使用。
+在 `\documentclass` 和 `\begin{document}` 之间的位置称为导言区，除了使用 `\usepackage` 之外，一些对文档的全局设置命令也在这里使用。
 必须清楚的几个概念:
 
 - **引擎**: 全称排版引擎，是读入源代码并编译生成文档的程序，如 pdfTEX, XETEX。也叫编译器。
@@ -255,8 +255,8 @@ cious.
 ```tex
 \tableofcontents
 ```
-生成单独的一个章节，标题默认为 “Contents”. 
-`\chapter* `或 `\section* `这样不生成目录项的章节标题命令，而又想手动 生成该章节的目录项，可以在标题命令后面使用：
+生成单独的一个章节，标题默认为 “Contents”。
+`\chapter*` 或 `\section*` 这样不生成目录项的章节标题命令，而又想手动生成该章节的目录项，可以在标题命令后面使用：
 ```tex
 \addcontentsline{toc}{<level>}{<title>}
 ```
@@ -264,7 +264,7 @@ cious.
 
 
 **文档结构的划分**
-所有标准文档类都提供了一个 `\appendix` 命令将正文和附录分开，最高一级章节改为使用拉丁字母编号，从 A 开始。
+所有标准文档类都提供了一个 `\appendix` 将正文和附录分开，最高一级章节改为使用拉丁字母编号，从 A 开始。
 book 文档类还提供了前言、正文、后记结构的划分命令：
 
 - `\frontmatter` 前言部分，页码为小写罗马字母格式；其后的 `\chapter` 不编号。
@@ -315,11 +315,11 @@ book 文档类的文档结构示例:
 
 
 **交叉引用**:
-在能够被交叉引用的地方，如章节、公式、图表、定理等位置使用 `\label` 命令：
+在能够被交叉引用的地方，如章节、公式、图表、定理等位置使用 `\label`：
 ```tex
 \label{<label-name>}
 ```
-之后可以在别处使用 `\ref` 或 `\pageref` 命令，分别生成交叉引用的编号和页码：
+之后可以在别处使用 `\ref` 或 `\pageref`，分别生成交叉引用的编号和页码：
 ```tex
 \ref{<label-name>}   \pageref{<label-name>}
 ```
@@ -333,7 +333,7 @@ page~\pageref{sec:this}.’’
 效果:
 A reference to this subsection looks like: “see section `3.3` on page `20`.”
 ```
-在使用不记编号的命令形式（`\section*`、`\caption*`、带可选参数的 `\item` 命令等）时不要使用 `\label` 命令，否则生成的引用编号不正确。
+在使用不记编号的命令形式（`\section*`、`\caption*`、带可选参数的 `\item` 命令等）时不要使用 `\label`，否则生成的引用编号不正确。
 
 
 **脚注**:
@@ -341,7 +341,12 @@ A reference to this subsection looks like: “see section `3.3` on page `20`.”
 ```tex
 “天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。”\footnote{出自《千字文》。}
 ```
-有些情况下（比如在表格环境、各种盒子内）使用 `\footnote` 并不能正确生成脚注. 可以分两步进行，先使用 `\footnotemark `为脚注计数，再在合适的位置用` \footnotetext` 生成脚注。比如：
+有些情况下（比如在表格环境、各种盒子内）使用 `\footnote` 并不能正确生成脚注, 可以分两步进行，
+
+- 先使用 `\footnotemark `为脚注计数，
+- 再在合适的位置用` \footnotetext` 生成脚注。
+
+比如：
 ```tex
 \begin{tabular}{l} 
 \hline 
@@ -354,13 +359,17 @@ A reference to this subsection looks like: “see section `3.3` on page `20`.”
 
 
 **列表**:
-基本的有序和无序列表环境 enumerate 和 itemize，用法很类似，都用 `\item` 标明每个列表项。enumerate 环境会自动对列表项编号。
+基本的有序和无序列表环境 enumerate 和 itemize，
+
+- 用法很类似，都用 `\item` 标明每个列表项。
+- enumerate 环境会自动对列表项编号。
+
 ```tex
 \begin{enumerate} 
-\item . . .
+\item 
 \end{enumerate}
 ```
-`\item` 可带一个可选参数，将有序列表的计数或者无序列表的符号替换成自定义的符号。列表可以嵌套使用，最多嵌套四层。
+`\item` 可带一个可选参数，将计数或符号替换成自定义的。列表可以嵌套使用，最多四层。
 ```tex
 \begin{enumerate} 
     \item An item. 
@@ -382,14 +391,14 @@ A reference to this subsection looks like: “see section `3.3` on page `20`.”
 3. Reference(1b).
 ```
 itemize 的用法类似, 无序列表的序号为实心圆点和 `-` (子列表中)
-关键字环境 description 的用法与以上两者类似，不同的是 `\item` 后的可选参数用来写关键字，以粗体显示，一般是必填的：
+description 的用法与以上两者类似，不同的是 `\item` 后的可选参数用来写关键字，以粗体显示，一般是必填的：
 ```tex
 \begin{description} 
 \item[Enumerate] Numbered list. 
 \item[Itemize] Non-numbered list. 
 \end{description}
 ```
-默认的列表间距比较宽，要用到 `enumitem` 宏包定制各种列表间距，宏包还提供了对列表标签、引用等的定制。
+默认的列表间距比较宽，要用到 `enumitem` 宏包定制各种列表间距，还提供了对列表标签、引用等的定制。
 
 
 **对齐环境**:
@@ -399,14 +408,14 @@ center、flushleft 和 flushright 环境分别用于生成居中、左对齐和�
 \begin{flushleft} . . .     \end{flushleft} 
 \begin{flushright} . . .    \end{flushright}
 ```
-还可以用以下命令直接改变文字的对齐方式：
+还可以用以下直接改变文字的对齐方式：
 ```tex
 \centering
-\raggedright 
+\raggedright
 \raggedleft 
 ```
 上述两种用法的区别: 
-`center` 等环境会在上下文产生一个额外间距，而 `\centering` 等命令不产生。比如在浮动体环境 table 或 figure 内实现居中对齐，用 `\centering` 命令即可。
+`center` 等会在上下文产生一个额外间距，而 `\centering` 等不产生。比如在浮动体环境 table 或 figure 内实现居中对齐，用 `\centering` 即可。
 
 
 **引用环境**:
@@ -425,14 +434,16 @@ verse 用于排版诗歌，与 quotation 恰好相反，verse 是首行悬挂缩
 
 
 **摘要环境**:
-abstract 默认只在标准文档类中的 article 和 report 可用，一般用于紧跟 `\maketitle` 之后介绍文档的摘要。如果指定了 titlepage 选项，则单独成页；反之，单栏排版时相当于一个居中的小标题加一个 quotation 环境，双栏排版时相当于 `\section*` 定义的一节。
+abstract 默认只在标准文档类中的 article 和 report 可用，一般用于紧跟 `\maketitle` 之后介绍文档的摘要。
+
+- 如果指定了 titlepage 选项，则单独成页；
+- 反之，单栏排版时相当于一个居中的小标题加一个 quotation 环境，双栏排版时相当于 `\section*` 定义的一节。
 
 
 **代码环境**:
-它以等宽字体排版代码，回车和空格也分别起到换行和空位的作用; 带星号的版本更进一步将空格以特殊符号的形式显示出来: 
+它以等宽字体排版代码，回车和空格也分别起到换行和空位的作用; `*` 版本进一步将空格以特殊符号的形式显示出来: 
 ```tex
 \begin{verbatim}
-...
 \end{verbatim}
 
 \begin{verbatim*}
@@ -442,24 +453,31 @@ abstract 默认只在标准文档类中的 article 和 report 可用，一般用
 ```tex
 \verb<delim><code><delim>
 ```
-<delim> 标明代码的分界位置，前后必须一致，除字母、空格或星号外，可任意选择使得不与代码本身冲突，习惯上使用 `|` 符号。
+`<delim>` 标明代码的分界位置，前后必须一致，除字母、空格或星号外，可任意选择使得不与代码本身冲突，习惯上使用 `|` 符号。
 同 verbatim 环境，`\verb` 后也可以带一个星号，以显示空格：
 ```tex
 \verb|\LaTeX| \\ 
 \verb+(a || b)+ \verb*+(a || b)+
 ```
-verbatim 宏包优化了 verbatim 环境的内部命令，并提供了 `\verbatiminput` 命令用来直接读入文件生成代码环境。fancyvrb 宏包提供了可定制格式的 Verbatim 环境；listings 宏包更进一步，可生成关键字高亮的代码环境，支持各种程序设计语言的语法和关键字。
+
+- verbatim 宏包优化了 verbatim 环境的内部命令，并提供了 `\verbatiminput` 用来直接读入文件生成代码环境。
+- fancyvrb 宏包提供了可定制格式的 Verbatim 环境；
+- listings 宏包更进一步，可生成关键字高亮的代码环境，支持各种程序设计语言的语法和关键字。
 
 ## 表格
 排版表格最基本的 tabular 环境用法为：
 ```tex
 \begin{tabular}{<column-spec>}
-<item1 > & <item2> & . . . \\
+<item1> & <item2> & . . . \\
 \hline 
-<item1 > & <item2> & . . . \\
+<item1> & <item2> & . . . \\
 \end{tabular}
 ```
-`<column-spec>` 是列格式标记，在接下来的内容将仔细介绍；`&` 用来分隔单元格；`\\` 用来换 行；`\hline` 用来在行与行之间绘制横线。
+ 
+- `<column-spec>` 是列格式标记；
+- `&` 用来分隔单元格；`\\` 用来换行；
+- `\hline` 用来在行与行之间绘制横线。
+
 直接使用 tabular 环境的话，会和周围的文字混排。tabular 环境可带一个可选参数控制垂直对齐（默认是垂直居中）：
 ```tex
 \begin{tabular}{|c|} 
@@ -479,8 +497,8 @@ bottom-\\ aligned\\
 
 ![](/images/tabular.png)
 
-但是通常情况下不这么用，tabular 环境一般会放置在 table 浮动体环境中，并用 `\caption` 命令加标题。
-表格中基本的列格式如下表：
+但是通常情况下不这么用，tabular 一般会放置在 table 浮动体环境中，并用 `\caption` 加标题。
+表格中基本的列格式(`<column-spec>`)如下表：
 
 |列格式 | 说明 |
 |---|---|
@@ -502,11 +520,13 @@ L       & C         & R     & P \\
 
 ![](/images/tabular2.png)
 
-表格中每行的单元格数目不能多于列格式里 `l/c/r/p` 的总数（可以少于这个总数），否则出错。
-`@` 格式可在单元格前后插入任意的文本，但同时它也消除了单元格前后额外添加的间距。`@` 格式可以适当使用以充当“竖线”。特别地，`@{}` 可直接用来消除单元格前后的间距 (@{} 不算做一个单宇格的元素)：
+- 表格中每行的单元格数目不能多于列格式里 `l/c/r/p` 的总数（可以少于这个总数），否则出错。
+- `@` 格式可在单元格前后插入任意的文本，但同时它也消除了单元格前后额外添加的间距。`@` 格式可以适当使用以充当“竖线”。
+- 特别地，`@{}` 可直接用来消除单元格前后的间距 (`@{}` 不算做一个单宇格的元素)：
+
 ```tex
 % @{} 消除了表格的边沿到元素的距离, 要以一列占位最大的元素为基准. 
-\begin{tabular}{@{} r@{:}lr @{}}
+\begin{tabular}{ @{} r @{:} l r @{} }
     \hline 1 & 1 & one \\ 
     11 & 3 & eleven \\ 
     \hline
@@ -514,15 +534,20 @@ L       & C         & R     & P \\
 ```
 ![](/images/tabular3.png)
 
-另外 LATEX 还提供了简便的将格式参数重复的写法 `*{<n>}{<column-spec>}`，比如以下两种写法是等效的：
+将格式参数重复的写法 `*{<n>}{<column-spec>}`，比如以下两种是等效的：
 ```tex
 \begin{tabular}{|c|c|c|c|c|p{4em}|p{4em}|} 
 \begin{tabular}{|*{5}{c|}*{2}{p{4em}|}}
 ```
-有时需要为整列修饰格式，比如整列改变为粗体，如果每个单元格都加上 `\bfseries` 命令会比较麻烦。array 宏包提供了辅助格式 `>` 和 `<`，用于给列格式前后加上修饰命令：
-`>{\itshape}r`, `<{*}`, `>`表示在左边作用, `<` 表示在右边作用
+有时需要为整列修饰格式，比如整列改变为粗体，每个单元格都加上 `\bfseries` 会比较麻烦。array 宏包提供了辅助格式 `>` 和 `<`，用于给列格式前后加上修饰命令：
+
+- `>{\itshape}r`, `>` 表示在左边作用, 
+
+- `<` 表示在右边作用
+    - `<{*}` biao
+
 ```tex
-\begin{tabular}{>{\itshape}r<{*}l} 
+\begin{tabular}{>{\itshape}r <{*} l} 
 \hline 
     italic & normal \\
     column & column \\ 
@@ -530,8 +555,7 @@ L       & C         & R     & P \\
 \end{tabular}
 %第一列的 italic 和 column 就变成了斜体. 
 ```
-辅助格式甚至支持插入 `\centering` 等命令改变 p 列格式的对齐方式，一般还要加额外的
-命令 `\arraybackslash` 以免出错:
+辅助格式甚至支持插入 `\centering` 等改变 p 列格式的对齐方式，一般还要加额外的 `\arraybackslash` 以免出错:
 ```tex
 \begin{tabular}
 {>{\centering\arraybackslash}p{9em}} 
@@ -544,8 +568,18 @@ L       & C         & R     & P \\
 
 
 **列宽** :
-LATEX 表格有着明显的不足：`l/c/r` 格式的列宽是由文字内容的自然宽度决定的，而 p 格式给定了列宽却不好控制对齐（可用 `array 宏包`的辅助格式），更何况列与列之间通常还有间距，所以直接生成给定总宽度的表格并不容易。
-`tabular*` 环境用来排版定宽表格，但是不太方便使用，比如要用到 `@` 格式插入额外命令，令单元格之间的间距为 `\fill`，但即使这样仍有瑕疵：
+LATEX 表格有着明显的不足：
+
+- `l/c/r` 格式的列宽是由文字内容的自然宽度决定的，
+- 而 `p` 格式给定了列宽却不好控制对齐（可用 `array 宏包`的辅助格式），
+- 更何况列与列之间通常还有间距，所以直接生成给定总宽度的表格并不容易。
+
+`tabular*` 用来排版定宽表格，但是不太方便使用，
+
+- 比如要用到 `@` 格式插入额外命令，
+- 令单元格之间的间距为 `\fill`，
+
+但即使这样仍有瑕疵：
 ```tex
 \begin{tabular*}{14em}%
 {@{\extracolsep{\fill}}|c|c|c|c|} 
@@ -553,10 +587,16 @@ LATEX 表格有着明显的不足：`l/c/r` 格式的列宽是由文字内容的
     \hline a & b & c & d \\ 
     \hline
 \end{tabular*}
+% width is too big
 ```
 ![](/images/tabular4.png)
 
-tabularx 宏包提供了方便的解决方案。它引入了一个 X 格式，类似 p 格式，不过会根据表格宽度自动计算列宽，多个 X 格式平均分配列宽。X 格式也可以用 array 里的辅助格式修饰对齐方式：
+tabularx 宏包提供了方便的解决方案。
+
+- 它引入了一个 `X` 格式，类似 `p` 格式，
+- 不过会根据表格宽度自动计算列宽，多个 X 格式平均分配列宽。
+- `X` 格式也可以用 array 里的辅助格式修饰对齐方式：
+
 ```tex
 \begin{tabularx}{14em}%
 {|*{4}{>{\centering\arraybackslash}X|}}
@@ -564,7 +604,7 @@ tabularx 宏包提供了方便的解决方案。它引入了一个 X 格式，�
     \hline a & b & c & d \\ 
     \hline 
 \end{tabularx}
-%效果正常, 每列宽相等, 而且每个元素居中. 
+% 效果正常, 每列宽相等, 而且每个元素居中. 
 拆解代码:
 | 代表表格的右边缘; 
 *{4} 代表 4 个重复元素; 
@@ -574,7 +614,7 @@ X| 代表重复的元素
 
 
 **横线**:
-`\cline{<i>-<j>}` 用来 绘制跨越部分单元格的横线：
+`\cline{<i>-<j>}` 绘制跨越部分单元格的横线：
 ```tex
 \begin{tabular}{|c|c|c|} 
     \hline
@@ -589,17 +629,19 @@ X| 代表重复的元素
 ![](/images/tabular5.png)
 
 在科技论文排版中广泛应用的表格形式是三线表。
-三线表由 `booktabs` 宏包支持，提供了 `\toprule`、`\midrule` 和 `\bottomrule` 用以排版三线表的三条线，以及和 `\cline` 对应的 `\cmidrule`。
+
+> 三线表由 booktabs 宏包支持，提供了 `\toprule`、`\midrule` 和 `\bottomrule` 用以排版三线表的三条线，以及和 `\cline` 对应的 `\cmidrule`。
+
 除此之外，最好不要用其它横线以及竖线：
 ```tex
 \begin{tabular}{cccc} 
     \toprule
-    & \multicolumn{3}{c}{Numbers} \\ 
-    \cmidrule{2-4} 
-        & 1 & 2 & 3 \\
+        & \multicolumn{3}{c}{Numbers} \\ 
+        \cmidrule{2-4} 
+            & 1 & 2 & 3 \\
     \midrule
-    Alphabet & A & B & C \\ 
-    Roman & I & II& III \\ 
+        Alphabet & A & B & C \\ 
+        Roman & I & II& III \\ 
     \bottomrule 
 \end{tabular}
 ```
@@ -611,7 +653,8 @@ X| 代表重复的元素
 ```tex
 \multicolumn{<n>}{<column-spec>}{<item>}
 ```
-其中 `<n>` 为要合并的列数，`<column-spec>` 为合并单元格后的列格式，只允许出现一个 `l/c/r` 或 p 格式。如果合并前的单元格前后带表格线 `|`，合并后的列格式也要带 `|` 以使得表格的竖线一致。
+其中 `<n>` 为要合并的列数，`<column-spec>` 为合并单元格后的列格式，只允许出现一个 `l/c/r` 或 `p`。
+如果合并前的单元格前后带表格线 `|`，合并后的列格式也要带 `|` 以使得表格的竖线一致。
 ```tex
 \begin{tabular}{|c|c|c|} 
     \hline 
@@ -631,7 +674,7 @@ X| 代表重复的元素
 ```tex
 \multirow{<n>}{<width>}{<item>}
 ```
-`<width>` 为合并后单元格的宽度，可以填 * 以使用自然宽度。
+`<width>` 为合并后单元格的宽度，可以填 `*` 以使用自然宽度。
 ```tex
 \begin{tabular}{ccc} 
     \hline
@@ -647,8 +690,11 @@ X| 代表重复的元素
 
 
 **嵌套表格** :
-在单元格中嵌套一个小表格可以起到“拆分单元格”的效果. 注意要用 `\multicolumn` 命令配合 `@{}` 格式把单元格的额外边距去掉，使得嵌套的表格线能和外层的表格线正确相连：
-额外边距指的是内嵌表格的三横线与其他的元素会有一段空白的左右间距, `@{}` 就会使得这个边距变为 0 , 同时设置 `|` 能够使表格有右边框. 
+在单元格中嵌套一个小表格可以起到“拆分单元格”的效果. 
+
+- 注意要用 `\multicolumn` 命令配合 `@{}` 格式把单元格的额外边距去掉，使得嵌套的表格线能和外层的表格线正确相连;
+- 额外边距指的是内嵌表格的三横线与其他的元素会有一段空白的左右间距, `@{}` 就会使得这个边距变为 0 , 同时设置 `|` 能够使表格有右边框. 
+
 ```tex
 \begin{tabular}{|c|c|c|} 
     \hline
@@ -669,7 +715,7 @@ X| 代表重复的元素
 
 
 **行距控制** : 
-改参数 `\arraystretch `可以得到行距更加宽松的表格:
+改参数 `\arraystretch` 可以得到行距更加宽松的表格:
 ```tex
 \renewcommand\arraystretch{1.8}
 \begin{tabular}{|c|}
@@ -678,62 +724,79 @@ X| 代表重复的元素
 ```tex
 \\[6pt]
 ```
-但是这种换行方式会导致----表格的首个单元格不能直接使用中括号 []，
-否则 \\ 往往会将下一行的中括号当作自己的可选参数，因而出错。如果要使用中括号，应当放 在花括号 {} 里面。或者也可以选择将换行命令写成 \\[0pt]。
+
+- 但是这种换行方式会导致: 表格的首个单元格不能直接使用中括号 `[]`，
+    - 否则 `\\` 往往会将下一行的中括号当作自己的可选参数，因而出错。
+- 如果要使用中括号，应当放在花括号 `{}` 里面。
+- 或者也可以选择将换行命令写成 `\\[0pt]`。
 
 ## 图片
-LATEX 本身不支持插图功能，需要由 `graphicx 宏包`辅助支持。
-使用 latex + dvipdfmx 编译命令时，调用 graphicx 宏包时要指定 dvipdfmx 选项6；而使用 pdflatex 或 xelatex 命令编译时不需要. 
-调用 `graphicx 宏包`, 就可以使用 \includegraphics 命令加载图片了：
+LATEX 本身不支持插图功能，需要由 graphicx 宏包辅助支持。
+
+- 使用 latex + dvipdfmx 编译命令时，调用 graphicx 宏包时要指定 dvipdfmx 选项 6；
+- 而使用 pdflatex 或 xelatex 命令编译时不需要. 
+
+调用 graphicx 宏包, 可以用 `\includegraphics` 加载图片：
 ```tex
 \includegraphics[options]{filename}
 ```
-另外 graphicx 宏包还提供了 `\graphicspath` 命令，用于声明一个或多个图片文件存放的目录，使用这些目录里的图片时可不用写路径, 其他目录则要写出相对或者绝对路径. 
+graphicx 宏包还提供了 `\graphicspath`，用于声明一个或多个图片文件存放的目录，这些目录里的图片时可不用写路径, 其他则要写出相对或者绝对路径. 
 option 支持 key = value 形式赋值: 
 
 | 参数 | 含义 |
 |-----|-----|
-|width=width| 将图片缩放到宽度为 `<width>`|
-|height=height| 将图片缩放到高度为 `<height>`|
-|scale=scale |将图片相对于原尺寸缩放 `<scale>` 倍|
-|angle=angle| 令图片逆时针旋转 `<angle>` 度|
+| `width=width` | 将图片缩放到宽度为 `<width>`|
+| `height=height` | 将图片缩放到高度为 `<height>`|
+| `scale=scale` |将图片相对于原尺寸缩放 `<scale>` 倍|
+| `angle=angle` | 令图片逆时针旋转 `<angle>` 度|
 
 ## 盒子
 ```tex
-\mbox{...} 
+\mbox{...}
 \makebox[<width>][<align>]{...}
 ```
-`\mbox` 生成一个基本的水平盒子，内容只有一行（除非嵌套下文介绍的垂直盒子，或者其它内容），不允许分段。外表看上去，`\mbox` 的内容与正常的文本无二，不过断行时文字不会从盒子里断开。
-`\makebox` 更进一步，可以加上可选参数用于控制盒子的宽度 `<width>`，以及内容的对齐方式 <align>，可选居中 c（默认值）、左对齐 l、右对齐 r 和分散对齐 s.
+
+- `\mbox` 生成一个基本的水平盒子，内容只有一行（除非嵌套下文介绍的垂直盒子，或者其它内容），不允许分段。
+- `\mbox` 的内容与正常的文本无二，不过断行时文字不会从盒子里断开。
+- `\makebox` 更进一步:
+    - 可以加上可选参数用于控制盒子的宽度 `<width>`，
+    - 以及内容的对齐方式 <align>，
+    - 可选居中 c（默认值）、左对齐 l、右对齐 r 和分散对齐 s.
+
 ```tex
 |\mbox{Test some words.}|\\
 |\makebox[10em][l]{Test some words.}|\\ %生成一个固定长度的左对齐的文本.
 ```
 普通的盒子与普通的文本没有太大的差别, 只是规定了文本的位置和间距. 
 
-
 **带框的水平盒子** :
 ```tex
-\fbox{...} \framebox[<width>][<align>]{...}
+\fbox{...} 
+\framebox[<width>][<align>]{...}
 ```
-可以通过 `\setlength` 命令调节边框的宽度 `\fboxrule` 和内边距 `\fboxsep`：
+可以通过 `\setlength` 调节边框的宽度 `\fboxrule` 和内边距 `\fboxsep`：
 ```tex
 \setlength{\fboxrule}{1.6pt}
 \setlength{\fboxsep}{1em} 
 \framebox[10em][r]{Test box}
 ```
 
-
 **垂直盒子** :
-如果需要排版一个文字可以换行的盒子，LATEX 提供了两种方式：
+如果需要排版一个文字可以换行的盒子，两种方式：
 ```tex
+% method 1
 \parbox[<align>][<height>][<inner-align>]{<width>}{...} 
+% method 2
 \begin{minipage}[<align>][<height>][<inner-align>]{<width>}
 ........
 \end{minipage}
 ```
-其中 <align> 为盒子和周围文字的对齐情况（类似 tabular 环境）；<height> 和 <inner-align> 设置盒子的高度和内容的对齐方式，类似水平盒子 \makebox 的设置，不过 <inner-align> 接受的 参数是顶部 t、底部 b、居中 c 和分散对齐 s。
-如果在` minipage` 里使用` \footnote` 命令，生成的脚注会出现在盒子底部，编号是独立的， 并且使用小写字母编号。这也是 minipage 环境之被称为“迷你页”（Mini-page）的原因。而在 `\parbox` 里无法正常使用` \footnote` 命令，只能在盒子里使用` \footnotemark`，在盒子外使用 `\footnotetext`。
+
+- `<align>` 为盒子和周围文字的对齐情况（类似 tabular 环境）；
+- `<height>` 和 `<inner-align>` 设置盒子的高度和内容的对齐方式，类似水平盒子 `\makebox` 的设置，不过 `<inner-align>` 接受的参数是顶部 t、底部 b、居中 c 和分散对齐 s。
+- 如果在` minipage` 里使用` \footnote` 命令，生成的脚注会出现在盒子底部，编号是独立的， 并且使用小写字母编号。这也是 minipage 环境之被称为“迷你页”（Mini-page）的原因。
+- 而在 `\parbox` 里无法正常使用` \footnote` 命令，只能在盒子里使用 `\footnotemark`，在盒子外使用 `\footnotetext`。
+
 ```tex
 \fbox{\begin{minipage}{15em}% 这是一个垂直盒子的测试。
     \footnote{脚注来自 minipage。} 
@@ -744,7 +807,7 @@ option 支持 key = value 形式赋值:
 
 
 **标尺盒子** :
-\rule 命令用来画一个实心的矩形盒子，也可适当调整以用来画线（标尺）:
+`\rule` 用来画一个实心的矩形盒子，也可适当调整以用来画线（标尺）:
 ```tex
 Black \rule{12pt}{4pt} box. 
 
@@ -756,14 +819,13 @@ A \rule[-.4pt]{3em}{.4pt} line.
 ![](/images/tabular10.png)
 
 ## 浮动体
-图片和表格太大, 导致分页困难. 因此需要使用浮动体. 
-预定义了两类浮动体环境 figure 和 table. 
+图片和表格太大, 导致分页困难. 因此需要使用浮动体。预定义了两类浮动体环境 figure 和 table. 
 以 table 环境的用法举例，figure 同理：
 ```tex
 \begin{table}[<placement>]
 \end{table}
 ```
-`<placement>` 参数提供了一些符号用来表示浮动体允许排版的位置，如 hbp 允许浮动体排版在当前位置、底部或者单独成页。table 和 figure 浮动体的默认设置为 tbp。
+`<placement>` 提供了一些符号用来表示浮动体允许排版的位置，如 hbp 允许浮动体排版在当前位置、底部或者单独成页。table 和 figure 浮动体的默认设置为 tbp。
 
 |  字母 |   含义 |
 |----|---|
@@ -775,14 +837,17 @@ A \rule[-.4pt]{3em}{.4pt} line.
 
 
 **浮动体的标题** :
-图表等浮动体提供了 `\caption` 命令加标题，并且自动给浮动体编号：
+图表等浮动体提供了 `\caption` 加标题，并且自动给浮动体编号：
 
-- \caption 的用法非常类似于 \section 等命令，可以用带星号的命令 \caption* 生成不带编号的标题，也可以使用带可选参数的形式 \caption[...]{...}，使得在目录里使用短标题。 \caption 命令之后还可以紧跟 \label 命令标记交叉引用。
-- \caption 生成的标题形如 “Figure 1: . . . ”（figure 环境）或 “Table 1: . . . ”（table 环境）。可通过修改 \figurename 和 \tablename 的内容来修改标题的前缀
+- `\caption` 的用法类似 `\section`，
+- `\caption*` 生成不带编号的标题，
+- 也可以使用带可选参数的形式 `\caption[...]{...}`，使得在目录里使用短标题。 
+- `\caption` 之后还可以紧跟 `\label` 标记交叉引用。
+- `\caption` 生成的标题形如 “Figure 1: . . . ”（figure 环境）或 “Table 1: . . . ”（table 环境）。可通过修改 `\figurename` 和 `\tablename` 的内容来修改标题的前缀
 
 
-**并排和子图表** :
-常有在一个浮动体里面放置多张图的用法。最简单的用法就是直接并排放置，也可以通过分段或者换行命令 \\ 排版多行多列的图片。
+**并排和子图表**
+常有在一个浮动体里面放置多张图的用法。最简单就是直接并排放置，也可以通过分段或者换行命令 `\\` 排版多行多列的图片。
 ```tex
 \begin{figure}[htbp] 
     \centering
@@ -791,10 +856,10 @@ A \rule[-.4pt]{3em}{.4pt} line.
     \includegraphics[width=...]{...} 
     \\[..pt] 
     \includegraphics[width=...]{...} 
-    \caption{...} 
+    \caption{...}
 \end{figure}
 ```
-由于标题是`横跨一行`的，用` \caption `命令为每个图片 (浮动体内有两张以上的图片)单独生成标题就需要借助前文提到的 `\parbox 或者 minipage` 环境，将标题限制在盒子内。
+由于标题是`横跨一行`的，用 `\caption` 为每个图片 (浮动体内有两张以上的图片)单独生成标题就需要借助前文提到的 `\parbox` 或者 `minipage`，将标题限制在盒子内。
 ```tex
 \begin{figure}[htbp] 
     \centering
@@ -806,7 +871,7 @@ A \rule[-.4pt]{3em}{.4pt} line.
     \qquad
 .......
 ```
-当我们需要更进一步，给每个图片定义小标题时，就要用到 subfig 宏包的功能了。这里仅举 一例。更详细的用法请参考 subfig 宏包的帮助文档。
+当我们需要更进一步，给每个图片定义小标题时，就要用到 subfig 宏包的功能了。比如：
 ```tex
 \begin{figure}[htbp]
     \centering
@@ -815,11 +880,12 @@ A \rule[-.4pt]{3em}{.4pt} line.
 ```
 小标题与单独标题不同之处在于小标题还有一个大标题 (两幅图 3 个标题), 而单独标题是互相平行的 (两幅图 2 个标题). 
 
-#排版数学公式
+
+# 排版数学公式
 AMS 宏集宏集合是美国数学学会 (American Mathematical Society) 提供的对 LATEX 原生的数学公式排版的扩展，其核心是 amsmath 宏包，对多行公式的排版提供了有力的支持。此外，amsfonts 宏包以及基于它的 amssymb 宏包提供了丰富的数学符号；amsthm 宏包扩展了 LATEX 定理证明格式。
 
 ## 公式排版基础
-行内公式由一对 $ 符号包裹.
+行内公式由一对 `$` 符号包裹.
 单独成行的行间公式在 LATEX 里由 equation 环境包裹。equation 环境为公式自动生成一个编号，这个编号可以用` \label` 和 `\ref` 生成交叉引用，amsmath 的 `\eqref `命令甚至为引用自动加上圆括号；还可以用` \tag` 命令手动修改公式的编号，或者用 `\notag `命令取消为公式编号（与之基本等效的命令是 `\nonumber`）。
 ```tex
 \begin{equation}
@@ -835,10 +901,14 @@ This is a reference to \eqref{clever}. %引用clever的编号
     1 + 1 = 3 \tag{dumb}    % 生成 (dumb) 编号, dumb就是一个单词
 \end{equation}
 ```
-LATEX 提供了一对命令 `\[` 和 `\] `用于生成不带编号的行间公式，与之等效的是 displaymath 环境。有的人更喜欢 equation* 环境，体现 了带星号和不带星号的环境之间的区别。
+
+- `\[` 用于生成不带编号的行间公式，
+- displaymath 环境也可以生成不带编号的。
+- 有的人更喜欢 `equation*` 环境，体现了带星号和不带星号的环境之间的区别。
+
 ```tex
 方法一:
-\begin{equation*} 
+\begin{equation*}
     a^2 + b^2 = c^2
 \end{equation*}
 方法二:
@@ -848,15 +918,17 @@ LATEX 提供了一对命令 `\[` 和 `\] `用于生成不带编号的行间公�
     a^2 + b^2 = c^2
 \end{displaymath}
 ```
-行间公式的对齐、编号位置等性质由文档类选项控制，文档类的` fleqn` 选项令行间公式左对齐；`leqno` 选项令编号放在公式左边。
+行间公式的对齐、编号位置等性质由文档类选项控制，文档类的 `fleqn` 选项令行间公式左对齐；`leqno` 选项令编号放在公式左边。
 
 
 **数学模式和文本** :
-当你使用 $ 开启行内公式输入，或是使用 \[ 命令、equation 环境时，你就进入了所谓的数学模式。数学模式相比于文本模式有以下特点：
+使用 `$` 开启行内公式输入，或是使用 `\[` 命令、equation 环境时，就进入了数学模式，有以下特点：
 
-1. 数学模式中输入的空格全部被忽略。数学符号的间隙默认完全由符号的性质（关系符号、运算符等）决定。需要人为引入空隙时，使用 \quad 和 \qquad 等命令。
-2. 不允许有空行（分段），公式也无法自动换行或者用 \\ 换行。排版多行公式需要用到后续介绍的各种环境。
-3. 所有的字母被当作数学公式中的变量处理，字母间距与文本模式不一致，也无法生成单词之间的空格。如果想在数学公式中输入正体的文本，简单情况下可用  \mathrm 命令。或者用 amsmath 提供的 \text 命令2。
+1. 数学模式中输入的空格全部被忽略。数学符号的间隙默认完全由符号的性质（关系符号、运算符等）决定。需要空格，使用 `\quad` 和 `\qquad`。
+2. 不允许有空行（分段），公式也无法自动换行或者用 `\\` 换行。排版多行公式需要用到后续介绍的各种环境。
+3. 所有的字母被当作数学公式中的变量处理，字母间距与文本模式不一致，也无法生成单词之间的空格。
+4. 如果在数学公式中输入正体，可用 `\mathrm{X}`。或者 amsmath 提供的 `\text{文本}`。
+
 ```tex
 $x^{2} \geq 0 \qquad 
 \text{for \textbf{all} }
@@ -866,38 +938,52 @@ x \in \mathbb{R}$
 $x^{2} \geq 0 \qquad \text{for \textbf{all} } x\in\mathbb{R}$
 
 ## 数学符号
-省略号有 . . . (\dots) 和 · · · (\cdots) 两种形式。它们有各自合适的用途：
-$a_1, a_2, \dots, a_n$ .
-$a_1 + a_2 + \cdots + a_n$
-\ldots 和 \dots 是完全等效的，它们既能用在公式中，也用来在文本里作为省略号. 
-在矩阵中可能会用到竖排的 (\vdots) 和斜排的 (\ddots)。
+
+- 省略号有 $\dots$ (`\dots`) 和 $\cdots$ (`\cdots`)。它们的各自用途：
+    - $a_1, a_2, \dots, a_n$ 
+    - $a_1 + a_2 + \cdots + a_n$
+- `\ldots` 和 `\dots` 是完全等效的，它们既能用在公式中，也用来在文本里作为省略号。
+- 在矩阵中可能会用到竖排的 (`\vdots`) 和斜排的 (`\ddots`)。
 
 
-`amsmath` 提供了方便的命令` \dfrac` 和 `\tfrac`，前者在行内使用正常大小的分数, 后者在行内进行极度压缩. 
-一般的根式使用 \sqrt{...}；表示 n 次方根时写成 \sqrt[n]{...}. 
-特殊的分式形式，如二项式结构，由 amsmath 宏包的 \binom 命令生成：
+`amsmath` 提供了方便的命令` \dfrac` 和 `\tfrac`，前者在行内使用正常大小的分数, 后者在行内进行极度压缩。
+一般的根式使用 `\sqrt{2}`；表示 n 次方根时写成 `\sqrt[n]{2}`. 
+特殊的分式形式，如二项式结构，由 amsmath 宏包的 `\binom` 生成：
 ```tex
-\[
-\binom{n}{k} =\binom{n-1}{k} + \binom{n-1}{k-1} \]
+\[ \binom{n}{k} =\binom{n-1}{k} + \binom{n-1}{k-1} \]
 ```
 $\binom{n}{k} =\binom{n-1}{k} + \binom{n-1}{k-1}$
 
 
 **关系符** :
-不等于 : `\ne` ; 大于等于 : `\ge` ; 小于等于 : `\le` ; 约等于 : `\approx` ; 等价 : $\equiv$ (`\equiv`) ; 正比 : $\propto$ ,`\propto` ; 相似 : `\sim`
-倾斜的小于等于 : $\leqslant$ , `\leqslant` ; $\le$ (使用amssymb宏包).
+
+- 不等于 : `\ne` ; 大于等于 : `\ge` ; 小于等于 : `\le` ; 
+- 约等于 : `\approx` ; 等价 : $\equiv$ (`\equiv`) ; 
+- 正比 : $\propto$ ,`\propto` ; 相似 : `\sim`
+- 倾斜的小于等于 : $\leqslant$ , `\leqslant` ; $\le$ (使用 amssymb 宏包).
 
 
 **算符** :
-乘号 : `\times` ; 除号 : `\div` ; 点乘 : `\cdot` ; 加减号 : `\pm` 或者 `\mp`(加减号的上下位置相反)
-$\nabla$ : `\nabla` ; $\partial$ : `\partial`
+
+- 乘号 : `\times` ; 除号 : `\div` ; 
+- 点乘 : `\cdot` ; 
+- 加减号 : `\pm` 或者 `\mp`(加减号的上下位置相反)
+- $\nabla$: `\nabla` ; 
+- $\partial$ : `\partial`
 
 
 **巨算符** :
-$ \int $(`\int`) , $\oint$ (`\oint`), $\prod$ (`\prod`) 和 $\sum$ (`\sum`) 称为巨算符. 巨算符在行内公式和行间公式的大小和形状有区别。 
-巨算符的上下标用作其上下限。行间公式中，积分号默认将上下限放在右上角和右下角，求和号默认在上下方；行内公式一律默认在右上角和右下角。可以在巨算符后使用 \limits 手动令上下限显示在上下方，\nolimits 则相反。
-$\sum\limits_{i=1}^n $ : `\sum\limits_{i=1}^n `
-amsmath 宏包还提供了 `\substack`，能够在下限位置书写多行表达式；`subarray` 环境更进 一步，令多行表达式可选择居中 (c) 或左对齐 (l)：
+$ \int $(`\int`) , $\oint$ (`\oint`), $\prod$ (`\prod`) 和 $\sum$ (`\sum`) 称为巨算符. 
+巨算符在行内公式和行间公式的大小和形状有区别。 
+巨算符的上下标用作其上下限。
+
+- 行间公式中，积分号默认将上下限放在右上角和右下角，求和号默认在上下方；
+- 行内公式一律默认在右上角和右下角。
+- 可以在巨算符后使用 `\limits` 手动令上下限显示在上下方，`\nolimits` 则相反。
+- $\sum\limits\_{i=1}^n$ : `\sum\limits_{i=1}^n `
+
+amsmath 宏包还提供了 `\substack`，能够在下限位置书写多行表达式；
+subarray 环境更进一步，令多行表达式可选择居中 (c) 或左对齐 (l)：
 ```tex
 \sum_{\substack{0\le i\le n \\ 
         j\in \mathbb{R}}}
@@ -910,49 +996,64 @@ P(i,j) = Q(n)
 ```
 
 
-**数学重音和上下括号** :
-数学符号可以像文字一样加重音，比如对时间求导的符号 $\dot{r}$ (`\dot{r}`),  $\ddot{r}$ (`\ddot{r}`), $\vec{r}$ (`\vec{r}`), 表示欧式空间单位向量的$\hat{\mathbf{e}}$ (`\hat{\mathbf{e}}`). 
-也能为多个字符加重音，包括直接画线的 `\overline `和 `\underline` 命令（可叠加使用）、宽重音符号 `\widehat`、表示向量的箭头 $\overrightarrow{AB}$  `\overrightarrow` 等 (箭头的长度与 $\vec{AB}$ , `\vec{AB}` 稍有不同)
-\overbrace 和 \underbrace 命令用来生成上/下括号，各自可带一个上/下标公式。
+**数学重音和上下括号**:
+数学符号可以像文字一样加重音，
+
+- 比如对时间求导的符号 $\dot{r}$ (`\dot{r}`)，$\ddot{r}$ (`\ddot{r}`), $\vec{r}$ (`\vec{r}`), 
+- 表示欧式空间单位向量的 $\hat{\mathbf{e}}$ (`\hat{\mathbf{e}}`)；
+
+也能为多个字符加重音，
+
+- 包括直接画线的 `\overline `和 `\underline` 命令（可叠加使用）、
+- 宽重音符号 `\widehat`、
+- 表示向量的箭头 $\overrightarrow{AB}$ `\overrightarrow` 等 (箭头的长度与 $\vec{AB}$, `\vec{AB}` 稍有不同)
+
+`\overbrace` 和 `\underbrace` 命令用来生成上/下括号，各自可带一个上/下标公式。
 ```tex
-\underbrace
-    {
+\underbrace {
     \overbrace{a+b+c}^6 
     \cdot
-    \overbrace{d+e+f}^7
-    } 
+    \overbrace{d+e+f}^7 } 
 _\text{meaning of life} = 42
 ```
 效果:
 $$\underbrace{\overbrace{a+b+c}^6 \cdot \overbrace{d+e+f}^7} _\text{meaning of life} = 42$$
 
 **箭头** :
-除了作为上下标之外，箭头还用于表示过程。amsmath 的 \xleftarrow 和 \xrightarrow 命令可以为箭头增加上下标：
+除了作为上下标之外，箭头还用于表示过程。amsmath 的 `\xleftarrow` 和 `\xrightarrow` 命令可以为箭头增加上下标：
 ```tex
 % [] 里面的参数做下标, {} 里面的参数做上标
-c\xrightarrow[x<y]{a*b*c}d
+c \xrightarrow[x<y]{a*b*c}d
 ```
 效果:
-$$c\xrightarrow[x<y]{a*b*c}d$$
+$$ c \xrightarrow[ x < y ]{a*b*c}d $$
 
 
 **括号和定界符** :
-使用 `\left` 和 `\right` 命令可令括号（定界符）的大小可变，在行间公式中常用. 
+`\left` 和 `\right` 可令括号（定界符）的大小可变：
 ```tex
 1 + \left(\frac{1}{1-x^{2}} \right)^3 \qquad 
 \left.\frac{\partial f}{\partial t} \right|_{t=0}
 ```
-我们还可自己调节定界符的大小. 这是我们可以用 `\big`、`\bigg` 等命令生成固定大小的定界符。更常用的形式是类似 \left 的 `\bigl`、`\biggl` 等，以及类似 \right 的 `\bigr`、`\biggr` 等（\bigl 和 \bigr 不必成对出现）
+还可自己调节定界符的大小：
+
+- 可以用 `\big`、`\bigg` 等生成固定大小的定界符。
+- 更常用的形式是类似 `\left` 的 `\bigl`、`\biggl` 等，
+- 以及类似 `\right` 的 `\bigr`、`\biggr` 等（`\bigl` 和 `\bigr` 不必成对出现）
+
 ```tex
 \Bigl((x+1)(x-1)\Bigr)^{2}
 ```
 效果为 : $\Bigl((x+1)(x-1)\Bigr)^{2}$
-使用 `\big` 和 `\bigg` 等命令的另外一个好处是：用 `\left` 和 `\right` 分界符包裹的公式块是不允许断行的（下文提到的 array 或者 aligned 等环境视为一个公式块），所以也不允许在多行公式里跨行使用，而 \big 和 \bigg 等命令不受限制. 
+
+> `\big` 和 `\bigg` 的另外一个好处是：用 `\left` 和 `\right` 分界符包裹的公式块是不允许断行的
+下文提到的 array 或者 aligned 等环境视为一个公式块，
+所以也不允许在多行公式里跨行使用，而 `\big` 和 `\bigg` 等不受限制。
 
 ## 多行公式
 
 **长公式折行** :
-amsmath 宏包的 `multline` 环境提供了书写折行长公式的方便环境。它允许用 \\ 折行，将公式编号放在最后一行。多行公式的首行左对齐，末行右对齐，其余行居中。
+amsmath 宏包的 `multline` 环境提供了书写折行长公式的方便环境。它允许用 `\\` 折行，将公式编号放在最后一行。多行公式的首行左对齐，末行右对齐，其余行居中。
 ```tex
 \begin{multline} 
     a + b + c + d + e + f + g + h + i \\ 
@@ -961,7 +1062,7 @@ amsmath 宏包的 `multline` 环境提供了书写折行长公式的方便环境
 \end{multline}
 ```
 效果: 
-$$\begin{multline} 
+$$\begin{multline}
     a + b + c + d + e + f + g + h + i \\\\
         = j + k + l + m + n \\\\
     = o + p + q + r + s \end{multline}
@@ -969,9 +1070,9 @@ $$
 与表格不同的是，公式的最后一行不写 `\\`，如果写了，反倒会产生一个多余的空行。
 
 
-**多行公式** :
+**多行公式**:
 需要罗列一系列公式，并令其按照等号对齐。
-align 环境，它将公式用 `&` 隔为两部分并对齐。
+使用 align 环境，它将公式用 `&` 隔为两部分并对齐。
 分隔符通常放在等号左边：
 ```tex
 \begin{align} 
@@ -980,8 +1081,8 @@ align 环境，它将公式用 `&` 隔为两部分并对齐。
      =  &  d + e
 \end{align}
 ```
-仍然可以用 `\notag` 去掉某行的编号.   
-align 还能够对齐多组公式，除等号前的 & 之外，公式之间也用 & 分隔：
+可以用 `\notag` 去掉某行的编号。  
+align 还能够对齐多组公式，除等号前的 `&` 之外，公式之间也用 `&` 分隔：
 ```tex
 \begin{align} 
     a &=1 & b &=2 & c &=3 \\ 
@@ -993,8 +1094,7 @@ $$\begin{align}
     a &=1 & b &=2 & c &=3 \\\\
     d &=-1 & e &=-2 & f &=-5 \end{align}
 $$
-
-如果我们不需要按等号对齐，只需罗列数个公式，gather 将是一个很好用的环境：
+如果不需要按等号对齐，只需罗列数个公式，gather 将是很好用的环境：
 ```tex
 \begin{gather} 
     a = b + c  \\
@@ -1002,11 +1102,14 @@ $$
     l + m = n 
 \end{gather}
 ```
-align 和 gather 有对应的不带编号的版本 `align*` 和 `gather*`。
+align 和 gather 有不带编号的版本 `align*` 和 `gather*`。
 
 
 **公用编号的多行公式** :
-多行公式公用一个编号，编号位于公式垂直位置居中，amsmath 宏包提供了诸如 `aligned`、`gathered` 等环境，与 equation 环境套用。以 -ed 结尾的环境用法与前一节不以 -ed 结尾的环境用法一一对应。仅以 aligned 举例：：
+
+> 多行公式公用一个编号，编号位于公式垂直位置居中，amsmath 宏包提供了诸如 `aligned`、`gathered` 等环境，与 equation 环境套用。
+
+用法是相同的。仅以 aligned 举例：
 ```tex
 %　效果是中间的等号对齐
 \begin{equation} 
@@ -1018,7 +1121,7 @@ align 和 gather 有对应的不带编号的版本 `align*` 和 `gather*`。
     \end{aligned} 
 \end{equation}
 ```
-`split` 环境和 `aligned` 环境用法类似，也用于和 `equation `环境套用，区别是` split `只能将每行的一个公式分两栏，`aligned `允许每行多个公式多栏。
+`split` 环境也是类似，也用于和 `equation `环境套用，区别是 `split` 只能将每行的一个公式分两栏，`aligned `允许每行多个公式多栏。
 
 ## 数组和矩阵
 数组排版使用 array 环境, 用法与 tabular 环境极为类似，需要定义列格式, 并用 `\\` 换行. 数组可作为一个公式块，在外套用 `\left`、`\right` 等定界符：
@@ -1064,17 +1167,24 @@ amsmath 宏包还直接提供了多种排版矩阵的环境，包括不带定界
 这时要用到 3.6.6 小节的方法来调节间距. 
 
 ## 公式中的间距
-我们已经认识了两个生成间距的命令` \quad` 和 `\qquad`。在公式中我们 还可能用到的间距包括 `\,`、`\:`、`\;` 以及负间距 `\!`，其中 `\quad` 、`\qquad` 和 `\,` 在文本和数学环境中可用，后三个命令只用于数学环境。
+在公式中还可能用到的间距包括 `\,`、`\:`、`\;` 以及负间距 `\!`，
+
+- 其中 `\quad` 、`\qquad` 和 `\,` 在文本和数学环境中可用，
+- 前三个命令只用于数学环境。
+
 间隔大小 :
 
 ![](/images/math1.png)
 
-一个常见的用途是修正积分的被积函数 f(x) 和微元 dx 之间的距离。注意微元里的 d 用的是**直立体**：
+- 上表常见的用途是修正积分的被积函数 f(x) 和微元 dx 之间的距离。注意微元里的 d 用的是**正体**
+- 另一个用途是生成多重积分号。
+    - 如果直接连写两个 `\int`，之间的间距将会过宽，此时可以使用负间距 `\!` 修正。
+    - 不过 amsmath 提供了多重积分号，如二重积分 `\iint`、三重积分 `\iiint`。
+
 ```tex
 \int_a^b f(x)\,\mathrm{d}x
 ```
-效果为 : $\int_a^b f(x) \, \mathrm{d}x$
-另一个用途是生成多重积分号。如果我们直接连写两个 \int，之间的间距将会过宽，此时可以使用负间距 \! 修正之。不过 amsmath 提供了更方便的多重积分号，如二重积分 \iint、三 重积分 \iiint 等。
+效果为: $\int_a^b f(x) \, \mathrm{d}x$
 
 ## 数学符号的字体控制
 LATEX 允许一部分数学符号切换字体，主要是拉丁字母、数字等等。
@@ -1087,18 +1197,28 @@ LATEX 允许一部分数学符号切换字体，主要是拉丁字母、数字�
 
 
 **加粗的数学符号** :
-想得到粗斜体的符号，就没有现成的命令; 再比如 \mathbf 只能改变拉丁字母，希腊字母就没有用.
-LATEX 提供了一个命令 `\boldmath` 令用户可以将整套数学字体切换为粗体版本。但这个命令只能在公式外使用：
-`{\boldmath$\mu, M$}`, 效果为 $\mu$ 和 $M$ 都进行了加粗, 同时 $M$ 为斜体, (一般只用`\mathbf{M}` 表示粗体, 但是无法表示斜体). 
-然而定界符、巨算符等一些符号本身没有粗体版本，\boldsymbol 也得不到粗体。LATEX 工具宏集之一的 bm 宏包可以用 \bm 命令生成“伪粗体”，一定程度上解决了不带粗体版本的符号的问题。
+想得到粗斜体的符号，没有现成的命令：
+
+- `\mathbf` 只能改变拉丁字母，希腊字母就没有用.
+- `\boldmath` 令用户可以将整套数学字体切换为粗体版本。但这个命令只能在公式外使用；
+- `\boldsymbol` 可以用于公式内。
+- 定界符、巨算符等一些符号本身没有粗体版本，`\boldsymbol` 也得不到粗体
+
+`{\boldmath $\mu, M$}` 效果为：$\mu, M$ 这个行内公式得到了加粗。
+`\boldsymbol{\mu}` 效果为：$\boldsymbol{\mu}$
+bm 宏包可以用 `\bm` 生成“伪粗体”，一定程度上解决了不带粗体版本的符号的问题。
 
 ## 定理环境
-一个基本的命令 \newtheorem 提供定理环境的定义：
+`\newtheorem` 提供定理环境的定义：
 ```tex
 \newtheorem{<type>}{<title>}[<section-name>]
 \newtheorem{<type>}[<counter>]{<title>}
 ```
-`type` 为定理类型的名称，作为一个环境来使用。定理环境都需要定义，LATEX 里没有现成的 theorem 环境，直接使用很可能会出错。`title` 是定理类型的标签（“定理”，“公理”等），排版在序号之前。
+
+- `type` 为定理类型的名称，作为一个环境来使用。
+- 定理环境都需要定义，LATEX 里没有现成的 theorem 环境，直接使用很可能会出错。
+- `title` 是定理类型的标签（“定理”，“公理”等），排版在序号之前。
+
 定理的序号由两个可选参数之一决定，它们不能同时使用：
 
 - `section name` 为章节名称，这使定理序号成为章节的下一级序号；
@@ -1114,12 +1234,12 @@ LATEX 提供了一个命令 `\boldmath` 令用户可以将整套数学字体切�
 
 **amsthm 宏包** :
 LATEX 只给了原始的证明环境格式（粗体标签、斜体正文、定理名用小括号包裹）。如果需要修改格式，则要依赖其它的宏包，如 amsthm、ntheorem 等等。
-amsthm 提供了 `\theoremstyle `命令支持定理格式的切换，在用 `\newtheorem` 命令定义定理环境之前使用。amsthm 预定义了三种格式用于 \theoremstyle：
+amsthm 提供了 `\theoremstyle` 支持定理格式的切换，在用 `\newtheorem` 命令定义定理环境之前使用。amsthm 预定义了三种格式用于 `\theoremstyle`：
 
 - plain 和 LATEX 原始的格式一致；
 - definition 使用粗体标签、正体内容；
 - remark 使用斜体标签、正体内容。
-- 另外 amsthm 还支持用带星号的 \newtheorem* 定义不带序号的定理环境：
+- 另外 amsthm 还支持用带星号的 `\newtheorem*` 定义不带序号的定理环境：
 
 ```tex
 \theoremstyle{definition}   \newtheorem{law}{Law} 
@@ -1144,21 +1264,21 @@ amsthm 提供了 `\theoremstyle `命令支持定理格式的切换，在用 `\ne
 
 ![](/images/math3.png)
 
-amsthm 还支持使用 `\newtheoremstyle` 命令自定义定理格式，更为方便使用的是 ntheorem 宏包。感兴趣的读者可参阅它们的帮助手册。
+amsthm 还支持使用 `\newtheoremstyle` 自定义定理格式，更为方便是 ntheorem 宏包。
 
 
 **证明环境和证毕符号** :
 amsthm 还提供了一个 proof 环境用于排版定理的证明过程。proof 环境末尾自动加上一个证毕符号 (一个小正方形, 而且证明前会加上一个斜体的 Proof) ：
 
-```
+```tex
 \begin{proof} 
     For simplicity, we use
     ....
     That’s it. 
 \end{proof}
 ```
-如果行末是一个不带编号的公式， 证毕符号会另起一行，这时可使用 \qedhere 命令将证毕符 号放在公式末尾：
-```
+如果行末是一个不带编号的公式，证毕符号会另起一行，可用 `\qedhere` 将证毕符号放在公式末尾：
+```tex
 \begin{proof} 
     For simplicity, we use 
     \[
@@ -1167,14 +1287,14 @@ amsthm 还提供了一个 proof 环境用于排版定理的证明过程。proof 
 \end{proof}
 ```
 \qedhere 对于 align* 等命令也有效, 证毕符号放在多行公式的最后：
-```
+```tex
 \begin{align*} 
     E &= \gamma m_0 c^2 \\ 
     p &= \gamma m_0v \qedhere 
 \end{align*}
 ```
 如果有使用实心符号作为证毕符号的需求，需要自行用 \renewcommand 命令修改, 我们可以利用标尺盒子来生成一个适当大小的“实心矩形”：
-```
+```tex
 \renewcommand{\qedsymbol}% 
             {\rule{1ex}{1.5ex}}
 
@@ -1193,65 +1313,90 @@ amsthm 还提供了一个 proof 环境用于排版定理的证明过程。proof 
 # 排版样式设定
 ## 字体和字号
 LATEX 根据文档的逻辑结构（章节、脚注等）来选择默认的字体样式以及字号。需要更改字体样式或字号的话，可以使用表 5.1 和表 5.2 中列出的命令。
-```
+```tex
 {\small The small and \textbf{bold} Romans ruled}       %  \small 使用小字体
 {\Large all of great big                                % \Large使用大字体
-    {\itshape Italy}.}                               % \itshape 使用斜体字, 同时在 \Large作用域内部 
+    {\itshape Italy}.}                               % \itshape 使用斜体字, 同时在 \Large 作用域内部 
 ```
 
 
 **字体样式** :
-LATEX 提供了两组修改字体的命令，见表 5.1。其中诸如 `\bfseries` 形式的命令将会影响之后所有的字符，如果想要让它在局部生效，需要用花括号分组，也就是写成 `{\bfseries sometext}` 这样的形式; 对应的 `\textbf` 形式带一个参数，只改变参数内部的字体，更为常用。
-在公式中，直接使用 `\textbf` 等命令不会起效，甚至报错.
+LATEX 提供了两组修改字体的命令，见表 5.1。
+
+- 其中诸如 `\bfseries` 形式的命令将会影响之后所有的字符，
+    - 如果想要让它在局部生效，需要用花括号分组，即 `{\bfseries sometext}`; 
+    - 对应的 `\textbf` 形式带一个参数，只改变参数内部的字体，更为常用。
+- 在公式中，直接使用 `\textbf` 等不会起效，甚至报错。
 
 
 **字号** :
 字号命令实际大小依赖于所使用的文档类及其选项。表 5.3 列出了这些命令在标准文档类中的绝对大小，单位为 pt。
 使用字号命令的时候，通常也需要用花括号进行分组，如同 `\rmfamily` 那样。
-```
+```tex
 He likes 
     {\LARGE large 
         and {\small small}  % small 相对于 He likes 要更小
     letters}    
 ```
 LATEX 还提供了一个基础的命令 `\fontsize` 用于设定任意大小的字号：
-```
+```tex
 \fontsize{size}{base line-skip}
 ```
-\fontsize 用到两个参数, size 为字号, 第二个为基础行距. 字号都有对应的基础行距, 大小为字号的 1.2 倍. 如果不是在导言区，`\fontsize` 的 设定需要 `\selectfont` 命令才能立即生效，而表 5.2 的字号设定都是立即生效的。
+`\fontsize` 用到两个参数, 
+
+- size 为字号, 
+- 第二个为基础行距. 
+- 字号都有对应的基础行距, 大小为字号的 1.2 倍. 
+- 如果不是在导言区，`\fontsize` 的设定需要 `\selectfont` 命令才能立即生效。
 
 
 表 5.1---字体命令:
+
 | 法1 | 法2 | 英文名称|中文名称|
-|---|---|---|
-|\rmfamily | \textrm{...} | roman | 衬线字体（罗马体）|
-|\sffamily |\textsf{...} | sans serif | 无衬线字体 |
-|\ttfamily| \texttt{...}| typewriter | 等宽字体 |
-|\mdseries | \textmd{...} | medium | 正常粗细（中等）|
-|\bfseries| \textbf{...} | bold face | 粗体 |
-|\upshape | \textup{...} | upright | 直立体 |
-|\itshape | \textit{...} | italic | 意大利斜体 |
-|\slshape | \textsl{...} | slanted | 倾斜体 |
-|\scshape| \textsc{...} | Small Caps |小字母大写|
-|\em| \emph{...} | emphasized | 强调，默认斜体 |
-|\normalfont| \textnormal{...} | normal font | 默认字体 |
+|---|---|---|---|
+| `\rmfamily` | `\textrm{...}` | roman | 衬线字体（罗马体）|
+| `\sffamily` | `\textsf{...}` | sans serif | 无衬线字体 |
+| `\ttfamily` | `\texttt{...}` | typewriter | 等宽字体 |
+| `\mdseries` | `\textmd{...}` | medium | 正常粗细（中等）|
+| `\bfseries` | `\textbf{...}` | bold face | 粗体 |
+| `\upshape` | `\textup{...}` | upright | 直立体 |
+| `\itshape` | `\textit{...}` | italic | 意大利斜体 |
+| `\slshape` | `\textsl{...}` | slanted | 倾斜体 |
+| `\scshape` | `\textsc{...}` | Small Caps |小字母大写|
+| `\em` | `\emph{...}` | emphasized | 强调，默认斜体 |
+| `\normalfont` | `\textnormal{...}` | normal font | 默认字体 |
+
+![](/images/table_of_fonts.png)
 
 字号排序:
-```
+```tex
 \tiny  \scriptsize  \normalsize  \small  \footnotesize  \large  \Large  \LARGE  \huge  \Huge
 ```
 
 
 **选用字体宏包** :
 默认字体为由高德纳设计制作的 Computer Modern 字体。表 5.4 列出了较为常用的字体宏包，其中相当多的宏包还配置了数学字体，或者文本、数学字体兼而有之。
-参照P72. 上网查找字体风格. 
+参照 P72. 上网查找字体风格. 
 
 
 **字体编码** :
-字体编码对于 LATEX 用户来讲是一个比较难懂的概念。它指定了一个字体里面包含了哪些符号、符号如何编码等等细节。需要明确一点：字体编码并不与我们在 2.1.1 等小节叙述的 ASCII 编码等一一对应。 
-常见的正文字体编码有 OT1 和 T1 等。LATEX 默认使用对原始 TEX 兼容的 OT1 编码，使用起来有诸多限制：高德纳在设计 Computer Modern 字体时认为一些符号，如大于号、小于号等， 原则上都应该在公式里出现，所以在正文字体（\rmfamily 或 \sffamily）里，这些符号所在的位置被其它符号所占据. （事实上用户输入 < 和 > 得到的是 ! 和 ? 两个倒立的标点符号，正常的 大于号和小于号可用命令 `\textgreater` 和 `\textless` 输入；\ttfamily 字体下基本上是正常的）。
-扩展的 T1 编码则对 ASCII 字符的兼容好得多，不会出现上述的大于号、小于号的问题。T1
-编码配合一些字体宏包如 txfonts、lmodern 等，还能够令用户使用 \textasciitilde 命令输入 位置居中的连字符 a~b，相比数学符号 `$\sim$` 来得合理一些。
+字体编码对于 LATEX 用户来讲是一个比较难懂的概念。
+
+- 它指定了一个字体里面包含了哪些符号、符号如何编码等等细节。
+- 需要明确一点：字体编码并不与我们在 2.1.1 等小节叙述的 ASCII 编码等一一对应。
+
+常见的正文字体编码有 OT1 和 T1 等。
+
+- LATEX 默认使用对原始 TEX 兼容的 OT1 编码，
+    - 使用起来有诸多限制：高德纳在设计 Computer Modern 字体时认为一些符号，如大于号、小于号等，原则上都应该在公式里出现，
+    - 所以在正文字体（`\rmfamily` 或 `\sffamily`）里，这些符号所在的位置被其它符号所占据。
+    - 事实上用户输入 `<` 和 `>` 得到的是 `!` 和 `?` 两个倒立的标点符号，
+    - 正常的大于号和小于号可用命令 `\textgreater` 和 `\textless` 输入；
+    - `\ttfamily` 字体下基本上是正常的。
+- 扩展的 T1 编码则对 ASCII 字符的兼容好得多，
+    - 不会出现上述的大于号、小于号的问题。
+    - T1 编码配合一些字体宏包如 txfonts、lmodern 等，还能够令用户使用 `\textasciitilde` 命令输入位置居中的连字符 a~b，相比数学符号 `$\sim$` 来得合理一些。
+
 切换字体编码要用到 fontenc 宏包：
 ```tex
 \usepackage[T1]{fontenc}
@@ -1259,6 +1404,7 @@ LATEX 还提供了一个基础的命令 `\fontsize` 用于设定任意大小的�
 fontenc 宏包是用来配合传统的 LATEX 字体的，如表 5.4 中的大部分宏包。如果使用下文的
 fontspec 宏包调用 ttf 或 otf 格式字体，就不要再使用 fontenc 宏包。
 
+![](/images/font_package.png)
 
 **使用 fontspec 宏包更改字体 (xelatex)** :
 xelatex 编译命令能够支持直接调用系统安装的 .ttf 或 .otf 格式字体。相比于上一小 节，我们有了更多修改字体的余地。
@@ -1273,8 +1419,11 @@ xelatex 命令下支持用户调用字体的宏包是 fontspec。宏包提供了
 ```tex
 \setsansfont    [BoldFont={Arial Bold}, ItalicFont={Arial Italic}]  {Arial}
 ```
-font features 还能配置字体本身的各种特性，这里不再赘述，感兴趣的读者请参考 fontspec 宏 包的帮助文档。
-需要注意的是：fontspec 宏包会覆盖数学字体设置。需要调用表 5.4 中列出的一些数学字体宏包时，应当在调用 fontspec 宏包时指定 no-math 选项。fontspec 宏包可能被其它宏包或文档类（如 xeCJK、ctex 文档类）自动调用时，则在文档开头的 \documentclass 命令里指定` no-math `选项。
+font features 还能配置字体本身的各种特性，这里不再赘述。
+需要注意的是：fontspec 宏包会覆盖数学字体设置。
+
+- 需要调用表 5.4 中列出的一些数学字体宏包时，应当在调用 fontspec 宏包时指定 no-math 选项。
+- fontspec 宏包可能被其它宏包或文档类（如 xeCJK、ctex 文档类）自动调用时，则在文档开头的 `\documentclass` 里指定 `no-math`选项。
 
 
 
@@ -1301,11 +1450,11 @@ font features 还能配置字体本身的各种特性，这里不再赘述，感
 |ex |当前字号下小写字母 x 的高度，常用于垂直距离的设定|
 
 在一些情况下还会用到可伸缩的“弹性长度”，如 `12pt plus 2pt minus 3pt` 表示基础长度为 12pt，可以伸展到 14pt ，也可以收缩到 9pt。
-如果需要自定义长度变量，需使用如下命令：
+如果需要自定义长度变量：
 ```tex
 \newlength{\length command}
 ```
-长度变量可以用 \setlength 赋值，或用 \addtolength 增加长度：
+长度变量可以用 `\setlength` 赋值，或用 `\addtolength` 增加长度：
 ```tex
 \setlength{\length command}{length}
 \addtolength{\length command}<length}
@@ -1313,12 +1462,16 @@ font features 还能配置字体本身的各种特性，这里不再赘述，感
 
 
 **行距** :
-前文中我们提到过 \fontsize 命令可以为字号设定对应的行距，但我们很少那么用。更常 用的办法是在导言区使用 \linespread 命令，
+前文提到过 `\fontsize` 命令可以为字号设定对应的行距，但很少那么用。更常用的办法是在导言区使用 `\linespread` 命令，
 ```tex
 \linespread{factor}
 ```
-这里的 factor 是在基础行距上而不是字号上乘以一个因子。大部分时候，默认的基础行距是 1.2 倍字号大小（参考 `\fontsize` 命令），因此设置 1.5 倍行距的命令 `\linespread{1.5}` 意 味着最终行距为 1.8 倍的字号大小。
-如果不是在导言区全局修改，而想要局部地改变某个段落的行距，需要用 \selectfont 命令使 \linespread 命令的改动立即生效：
+
+- 这里的 factor 是在基础行距上而不是字号上乘以一个因子。
+- 大部分时候，默认的基础行距是 1.2 倍字号大小（参考 `\fontsize` 命令），
+- 因此设置 1.5 倍行距的命令 `\linespread{1.5}` 意味着最终行距为 1.8 倍的字号大小。
+
+如果想要局部地改变某个段落的行距，用 `\selectfont` 使 `\linespread` 的改动立即生效：
 ```tex
 {\linespread{2.0} \selectfont 
     The baseline skip is set to be twice the normal baseline skip. Pay attention to the \verb|\par| command at the end. \par
@@ -1337,24 +1490,30 @@ font features 还能配置字体本身的各种特性，这里不再赘述，感
 % \setlength 命令同样是要在分组{}里面运行
 ```
 它们和设置行距的命令一样，在分段时生效。
-如果你在某一段不想使用缩进，可使用某一段开头使用 `\noindent` 命令。相反地，`\indent` 命令强制开启一段首行缩进的段落。多个 `\indent` 命令可以累加缩进量。
-LATEX 还默认在 \chapter、\section 等章节标题**命令之后的第一段**不缩进。
+
+- 如果在某一段不想使用缩进，可使用某一段开头使用 `\noindent`。
+- 相反地，`\indent` 命令强制开启一段首行缩进的段落。
+- 多个 `\indent` 命令可以累加缩进量。
+
+LATEX 还默认在 `\chapter`、`\section` 等章节标题**命令之后的第一段**不缩进。
 
 
 **水平间距** :
-LATEX 默认为将单词之间的“空格”转化为水平间距。如果需要在文中手动插入额外的水平 间距，可使用如下命令 `\hspace{length}`：
+LATEX 默认为将单词之间的“空格”转化为水平间距。如果需要手动插入额外的水平间距，可使用 `\hspace{length}`：
 ```tex
 This\hspace{1.5cm}is a space of 1.5 cm.
 ```
-命令 `\stretch{n}` 生成一个特殊弹性长度，参数 n 为权重。它的基础长度为 0pt，但可
-以无限延伸，直到占满可用的空间。如果同一行内出现多个 `\stretch{n}`，这一行的所有可用 空间将按每个 `\stretch` 命令给定的权重 n 进行分配.
-在正文中用` \hspace` 命令生成水平间距时，往往使用 em 作为单位，生成的间距随字号大
-小而变。我们在数学公式中见过 `\quad` 和 `\qquad` 命令，它们也可以用于文本中，分别相当于 `\hspace{1em} `和 `\hspace{2em}`
+
+- `\stretch{n}` 生成一个特殊弹性长度，参数 n 为权重。
+    - 它的基础长度为 0pt，但可以无限延伸，直到占满可用的空间。
+    - 如果同一行内出现多个 `\stretch{n}`，这一行的所有可用空间将按每个 `\stretch` 给定的权重 n 进行分配.
+- 在正文中用` \hspace` 命令生成水平间距时，往往使用 em 作为单位，生成的间距随字号大小而变。
+- 数学公式中的 `\quad` 和 `\qquad` 也可以用于文本中，分别相当于 `\hspace{1em} `和 `\hspace{2em}`
 
 
 **垂直间距** :
 在页面中，段落、章节标题、行间公式、列表、浮动体等元素之间的间距是 LATEX 预设的。比如 `\parskip` ，默认设置为 `0pt plus 1pt`。
-如果我们想要人为地增加段落之间的垂直间距，可以在两个段落之间的位置使用如下命令：
+如果要人为地增加段落之间的垂直间距，可以在两个段落之间的位置使用：
 ```tex
 \vspace{length}
 ```
@@ -1374,7 +1533,7 @@ between lines in a paragraph.
 ```
 
 ## 页面和分栏
-LATEX 允许你通过为文档类指定选项来控制纸 张的大小（见表 1.2），包括 a4paper、letterpaper 等等，并配合字号设置了适合的页边距。
+LATEX 允许通过为文档类指定选项来控制纸 张的大小（见表 1.2），包括 a4paper、letterpaper 等等，并配合字号设置了适合的页边距。
 但是，如果你想要直接设置页边距等参数，着实是一件麻烦事。我们根据图 `5.1` 将各个方向 的页边距计算公式给出（以奇数页为例）：
 ```tex
 left-margin = 1in + \hoffset + \oddsidemargin
@@ -1927,7 +2086,7 @@ This is ‘‘\tnss’’ \ldots{} ‘‘\tnss’’ % 显示新命令
     \newenvironment{king}{\begin{quote}}{\end{quote}}
 ```
 在宏包中调用其它宏包 :
-```
+```tex
 \RequirePackage[options]{package name}
 ```
 
