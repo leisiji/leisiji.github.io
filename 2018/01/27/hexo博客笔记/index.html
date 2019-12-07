@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="安装注册 github 和安装 git，还要安装 node，这些都是必须的。">
+<meta name="keywords" content="hexo, 前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo博客笔记">
+<meta property="og:url" content="http://yoursite.com/2018/01/27/hexo博客笔记/index.html">
+<meta property="og:site_name" content="xuelinye&#39;s notes">
+<meta property="og:description" content="安装注册 github 和安装 git，还要安装 node，这些都是必须的。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-07T14:12:06.417Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo博客笔记">
+<meta name="twitter:description" content="安装注册 github 和安装 git，还要安装 node，这些都是必须的。">
+
+<link rel="canonical" href="http://yoursite.com/2018/01/27/hexo博客笔记/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>hexo博客笔记 | xuelinye's notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xuelinye's notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/27/hexo博客笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xuelinye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xuelinye's notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hexo博客笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-27 23:16:26" itemprop="dateCreated datePublished" datetime="2018-01-27T23:16:26+08:00">2018-01-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-07 22:12:06" itemprop="dateModified" datetime="2019-12-07T22:12:06+08:00">2019-12-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>注册 github 和安装 git，还要安装 node，这些都是必须的。<br><a id="more"></a><br>检查是否安装成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure></p>
+<h1 id="搭建的步骤"><a href="#搭建的步骤" class="headerlink" title="搭建的步骤"></a>搭建的步骤</h1><p><strong>第一步</strong>：<br>新建一个 repository，命名为 yourname.github.io，一定是要账号的名字，否则打开不成功。</p>
+<hr>
+<p><strong>第二步</strong>：<br>新建完成后，在 settings 界面设置 github pages。Github 会自动生成一个页面。</p>
+<hr>
+<p><strong>第三步</strong>：<br>安装 Hexo 和其他<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">npm install hexo --save</span><br><span class="line">// 检测是否安装成功</span><br><span class="line">hexo -v</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>第四步</strong><br>hexo 的相关配置，接着上面的操作，输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></p>
+<p>尝试相关的操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g 		// 写完博客后，生成博客的页面</span><br><span class="line">hexo s 		// 开启本地的服务器，按着提示符可以在浏览器打开</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>第五步</strong><br>关联 github 和本地的博客（git 命令本地与远程的关联不再赘述）。<br>在 <code>_config.yml</code> 文件中，找到 Deployment，修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:yourname/yourname.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
+<p>将本地推送到 github：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure></p>
+<h1 id="hexo-的命令"><a href="#hexo-的命令" class="headerlink" title="hexo 的命令"></a>hexo 的命令</h1><p>发布文章：<code>hexo new post &quot;article title&quot;</code><br>生成：<code>hexo g</code><br>部署：<code>hexo d</code><br>在部署前先生成：<code>hexo d -g</code><br>删除文章：直接删除就可以了，无需其他的操作</p>
+<blockquote>
+<p>注意在部署前安装：<code>npm install hexo-deployer-git --save</code></p>
+</blockquote>
+<h2 id="主题修改"><a href="#主题修改" class="headerlink" title="主题修改"></a>主题修改</h2><p>推荐用 <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">next</a></p>
+<h3 id="公式开启"><a href="#公式开启" class="headerlink" title="公式开启"></a>公式开启</h3><p>开启 mathjax 就到 themes 下的 <code>_config.yml</code> 找到这一项改为 true。</p>
+<blockquote>
+<p>mathjax 的公式书写注意下标符号 <code>_</code> 要写成 <code>\_</code>；换行 <code>\\</code> 要写成 <code>\\\\</code>。</p>
+</blockquote>
+<p>这是因为 markdown 的渲染引擎的转义。</p>
+<p>要想嵌入图片就在 source 文件夹下新建一个叫做 images 的文件夹，往里面放图片，引用的连接格式为 <code>/images/XX.jpg</code> </p>
+<h1 id="备份本地博客的文件"><a href="#备份本地博客的文件" class="headerlink" title="备份本地博客的文件"></a>备份本地博客的文件</h1><p>由于 Github 上保存的只是生成的网页静态文件，因此需要新建一个分支保存本地原始文件，方便在不同的电脑上写博客。<br>创建两个分支：master 与 hexo，<br>在博客目录下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 新建仓库，将该仓库与远程仓库连接</span><br><span class="line">$ git init                  </span><br><span class="line">git remote add origin git@github.com:leisiji/leisiji.github.io.git</span><br><span class="line"></span><br><span class="line">$ git branch hexo           // 在本地新建一个分支</span><br><span class="line">$ git checkout hexo         // 切换到你的新分支</span><br><span class="line">$ git push origin hexo      // 将新分支发布在github上</span><br></pre></td></tr></table></figure></p>
+<p>在 github 网站设置 hexo 为默认分支。</p>
+<p><strong>解决乱码问题</strong><br><a href="https://www.zhihu.com/question/41625825/answer/128795760" target="_blank" rel="noopener">参考</a><br>页面出现乱码，在 next 主题目录下有一个 language 的文件夹，将 zh-Hans.yml 重命名 zh-CN.yml。.在 hexo 文件夹里的 <code>_config.yml</code> 修改 language: zh-CN</p>
+<h1 id="添加一些其他元素"><a href="#添加一些其他元素" class="headerlink" title="添加一些其他元素"></a>添加一些其他元素</h1><p>下面的操作都在 next 文件夹下的 <code>_config.yml</code> 完成。</p>
+<ul>
+<li>改变主题：找到 themes，我这里改为了 Mist 主题</li>
+<li>改变代码高亮，<code>highlight_theme</code>，我改为 night</li>
+<li>加入 Github 或者知乎链接，加入 <code>social:</code> 标签，加入 <code>知乎: http://www.zhihu.com/people/yangsiji9</code> 元素。而图标需要在 fontawsome 里面收录，在<code>social_icons</code> 标签里面添加连接相同的名字，比如 <code>GitHub: github</code>、<code>知乎: heart-o</code>（知乎还未收录）</li>
+<li>添加动态背景：<code>canvas_nest: true</code>。</li>
+<li>添加头像，avatar，最好是添加在线的头像 url(推荐使用新浪图床，chrome 有一个插件可以快速生成 url，但是有可能会被封杀)</li>
+</ul>
+<h1 id="markdown-相关"><a href="#markdown-相关" class="headerlink" title="markdown 相关"></a>markdown 相关</h1><ul>
+<li>在表格绘制竖线：<code>&amp;#124;</code>，<a href="https://stackoverflow.com/questions/17319940/how-to-escape-a-pipe-char-in-a-code-statement-in-a-markdown-table/17320389#17320389" target="_blank" rel="noopener">参考</a></li>
+</ul>
+<p>参考：<br><a href="http://kubicode.me/2016/03/18/Hexo/The-Trick-about-Hexo-Support-MutliLine-Equation-using-Mathjax/" target="_blank" rel="noopener">http://kubicode.me/2016/03/18/Hexo/The-Trick-about-Hexo-Support-MutliLine-Equation-using-Mathjax/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo-前端/" rel="tag"># hexo, 前端</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2018/03/22/lshort阅读笔记/" rel="next" title="lshort阅读笔记">
+      lshort阅读笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建的步骤"><span class="nav-number">2.</span> <span class="nav-text">搭建的步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hexo-的命令"><span class="nav-number">3.</span> <span class="nav-text">hexo 的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题修改"><span class="nav-number">3.1.</span> <span class="nav-text">主题修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#公式开启"><span class="nav-number">3.1.1.</span> <span class="nav-text">公式开启</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备份本地博客的文件"><span class="nav-number">4.</span> <span class="nav-text">备份本地博客的文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加一些其他元素"><span class="nav-number">5.</span> <span class="nav-text">添加一些其他元素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#markdown-相关"><span class="nav-number">6.</span> <span class="nav-text">markdown 相关</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xuelinye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuelinye</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
