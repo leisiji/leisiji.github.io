@@ -1,16 +1,14 @@
 ---
 title: lshort阅读笔记
 date: 2018-03-22 21:26:24
-tags:
+tags: latex
 ---
 
-# TexStudio 快捷键
-注释: `Ctrl + T`; 去除注释: `Ctrl + U`
-这里还需要补充。
-<!--more-->
+# lshort
 
 ## 源代码结构
 源代码以一个 `\documentclass` 作为开头，它规定了文档使用的文档类
+<!--more-->
 ```tex
 \documentclass{...}
 ```
@@ -2162,7 +2160,7 @@ LATEX 对文档元素自动计数的能力：章节符号、列表、图表都�
 
 # 安装和更新宏包
 TEX Live 提供了图形界面的宏包管理器 TEX Live Manager 用于安装和更新宏包，而 MikTEX 也提供了管理器 MikTEX Package Manager。
-```tex
+```bash
 % TeX Live 命令行工具 tlmgr 的使用示例
 tlmgr install <package-name>    % 安装某个宏包
 tlmgr remove <package-name>     % 卸载某个宏包 
