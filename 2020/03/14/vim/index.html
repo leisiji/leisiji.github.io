@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="使用 vim 已经有半年了，总结 vim 的一些比较有用的知识">
+<meta name="keywords" content="vim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim 基础">
+<meta property="og:url" content="http://yoursite.com/2020/03/14/vim/index.html">
+<meta property="og:site_name" content="xuelinye&#39;s notes">
+<meta property="og:description" content="使用 vim 已经有半年了，总结 vim 的一些比较有用的知识">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-21T13:14:21.849Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim 基础">
+<meta name="twitter:description" content="使用 vim 已经有半年了，总结 vim 的一些比较有用的知识">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/14/vim/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>vim 基础 | xuelinye's notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xuelinye's notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/14/vim/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xuelinye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xuelinye's notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vim 基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-14 21:26:24" itemprop="dateCreated datePublished" datetime="2020-03-14T21:26:24+08:00">2020-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-21 21:14:21" itemprop="dateModified" datetime="2020-03-21T21:14:21+08:00">2020-03-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>使用 vim 已经有半年了，总结 vim 的一些比较有用的知识</p>
+<a id="more"></a>
+<h1 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h1><h2 id="基本移动"><a href="#基本移动" class="headerlink" title="基本移动"></a>基本移动</h2><p>vim 基本命令：</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>u</td>
+<td>撤销</td>
+</tr>
+<tr>
+<td>x</td>
+<td>删除当前光标的字符</td>
+</tr>
+<tr>
+<td>p</td>
+<td>在光标后粘贴</td>
+</tr>
+<tr>
+<td>P</td>
+<td>在光标前粘贴</td>
+</tr>
+<tr>
+<td>y</td>
+<td>yarn</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>相当于 yy</td>
+</tr>
+<tr>
+<td>d</td>
+<td>delete</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除行</td>
+</tr>
+<tr>
+<td>D</td>
+<td>从光标处删除至行末，相当 <code>d$</code></td>
+</tr>
+<tr>
+<td>c</td>
+<td>change;</td>
+</tr>
+<tr>
+<td>C</td>
+<td>从光标处删除至行末，再进入 insert</td>
+</tr>
+<tr>
+<td>cc</td>
+<td>和 S 相同</td>
+</tr>
+<tr>
+<td>a</td>
+<td>append;</td>
+</tr>
+<tr>
+<td>A</td>
+<td>在行末 append</td>
+</tr>
+<tr>
+<td>i</td>
+<td>insert</td>
+</tr>
+<tr>
+<td>I</td>
+<td>在行首非 blank 字符 insert</td>
+</tr>
+<tr>
+<td>f</td>
+<td>向后查找</td>
+</tr>
+<tr>
+<td>F</td>
+<td>向前查找</td>
+</tr>
+<tr>
+<td>U</td>
+<td>visual 下改为大写</td>
+</tr>
+<tr>
+<td>u</td>
+<td>visual 下改为小写</td>
+</tr>
+<tr>
+<td>~</td>
+<td>大小写转换</td>
+</tr>
+<tr>
+<td>s</td>
+<td>subsitute a character</td>
+</tr>
+<tr>
+<td>S</td>
+<td>subsitue line</td>
+</tr>
+<tr>
+<td>o</td>
+<td>在该行前插入新行</td>
+</tr>
+<tr>
+<td>O</td>
+<td>在该行后插入新行</td>
+</tr>
+<tr>
+<td>J</td>
+<td>Join, 删除行未的换行符，连接两行</td>
+</tr>
+<tr>
+<td>#</td>
+<td>搜索光标下的单词</td>
+</tr>
+<tr>
+<td>.</td>
+<td>在 normal 下重复上一次的动作</td>
+</tr>
+<tr>
+<td><code>&lt;&lt;</code></td>
+<td>减小缩进</td>
+</tr>
+</tbody>
+</table>
+<p>单词和字符串移动（单词默认是以空格分隔的，字符串以标点作为分隔）：</p>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>w</td>
+<td>到下一个单词的开头</td>
+</tr>
+<tr>
+<td>e</td>
+<td>到下一个单词的结尾</td>
+</tr>
+<tr>
+<td>W</td>
+<td>到下一个字符串的开头</td>
+</tr>
+<tr>
+<td>E</td>
+<td>到下一个字符串的结尾</td>
+</tr>
+<tr>
+<td>B</td>
+<td>到前一个字符串的首字符上</td>
+</tr>
+<tr>
+<td>b</td>
+<td>到前一个单词的首个字符上</td>
+</tr>
+<tr>
+<td>ge</td>
+<td>向后移动到上一个单词的末尾</td>
+</tr>
+</tbody>
+</table>
+<p>快速移动（blank 字符就是空格、tab、换行、回车等）：</p>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>数字零，到行头</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>到本行第一个不是 blank 字符的位置</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>到本行行尾</td>
+</tr>
+<tr>
+<td><code>g_</code></td>
+<td>到本行最后一个不是blank字符的位置</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>到光标所在这对括号的另外一个</td>
+</tr>
+<tr>
+<td><code>gg</code></td>
+<td>首行</td>
+</tr>
+<tr>
+<td><code>G</code></td>
+<td>最后一行</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ctrl-对应的键位"><a href="#ctrl-对应的键位" class="headerlink" title="ctrl 对应的键位"></a>ctrl 对应的键位</h1><p>normal 模式下的 ctrl 快捷键：</p>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ctrl+d, ctrl+u</td>
+<td>page down / page up (半个屏幕)</td>
+</tr>
+<tr>
+<td>ctrl+f, ctrl+b</td>
+<td>page forward / page backward (一个屏幕)</td>
+</tr>
+<tr>
+<td>ctrl+y/ctrl+e</td>
+<td>向上/向下移动一行，但是光标不移动</td>
+</tr>
+<tr>
+<td>ctrl+g</td>
+<td>显示当前文件相对工程的路径</td>
+</tr>
+</tbody>
+</table>
+<p>insert 模式下的 ctrl 快捷键</p>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ctrl+w</td>
+<td>删除一个单词</td>
+</tr>
+<tr>
+<td>ctrl+u</td>
+<td>从光标位置删除到行首</td>
+</tr>
+<tr>
+<td>ctrl+r</td>
+<td>redo，和 u 的 undo 相反</td>
+</tr>
+<tr>
+<td>ctrl+o</td>
+<td>进入 normal mode</td>
+</tr>
+<tr>
+<td>ctrl+u</td>
+<td>重新编辑本行</td>
+</tr>
+<tr>
+<td>crtl+d, ctrl+t</td>
+<td>左右缩进</td>
+</tr>
+</tbody>
+</table>
+<h1 id="buffer-window-tab"><a href="#buffer-window-tab" class="headerlink" title="buffer/window/tab"></a>buffer/window/tab</h1><h2 id="buffer"><a href="#buffer" class="headerlink" title="buffer"></a>buffer</h2><p>vim 启动时打开多个 buffer：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim -e file.txt file2.txt</span><br></pre></td></tr></table></figure></p>
+<p>命令：</p>
+<ul>
+<li><code>:e[dit]</code>：打开某个文件到缓冲区</li>
+<li><code>:bd[elete]</code>：移出缓冲区</li>
+<li><code>Ctrl+^</code>（无需 Shift）来切换 window 的当前和上一个缓冲区</li>
+</ul>
+<p>还有其他的命令：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">:<span class="keyword">ls</span>, :<span class="keyword">buffers</span>       <span class="comment">"列出所有缓冲区</span></span><br><span class="line">:<span class="keyword">bn</span>[ext]            <span class="comment">"下一个缓冲区</span></span><br><span class="line">:<span class="keyword">bp</span>[revious]        <span class="comment">"上一个缓冲区</span></span><br><span class="line">:<span class="keyword">b</span> &#123;<span class="keyword">number</span>, expression&#125;     <span class="comment">"跳转到指定缓冲区</span></span><br><span class="line"></span><br><span class="line">:b2					<span class="comment">"将会跳转到编号为2的缓冲区</span></span><br><span class="line">:<span class="keyword">b</span> exa				<span class="comment">"将会跳转到最匹配exa的文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" 分屏</span></span><br><span class="line">:<span class="keyword">sb</span> <span class="number">3</span>               <span class="comment">"分屏并打开编号为3的Buffer</span></span><br><span class="line">:<span class="keyword">vertical</span> <span class="keyword">sb</span> <span class="number">3</span>      <span class="comment">"同上，垂直分屏</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="tabe"><a href="#tabe" class="headerlink" title="tabe"></a>tabe</h2><p>用多个标签页启动 Vim<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim -p main.cpp my-oj-toolkit.h /private/etc/hosts</span><br></pre></td></tr></table></figure></p>
+<p>常用命令：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">:<span class="keyword">tabp</span>      <span class="comment">"前一个</span></span><br><span class="line">:<span class="keyword">tabn</span>      <span class="comment">"后一个</span></span><br><span class="line">:<span class="keyword">tabr</span>      <span class="comment">"第一个</span></span><br><span class="line">:<span class="keyword">tablast</span>   <span class="comment">"最后一个</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" 打开和关闭 tab</span></span><br><span class="line">:<span class="keyword">tabe</span>[dit] &#123;<span class="keyword">file</span>&#125;   <span class="comment">"edit specified file in a new tab</span></span><br><span class="line">:<span class="keyword">tabf</span>[ind] &#123;<span class="keyword">file</span>&#125;   <span class="comment">"open a new tab with filename given, searching the 'path' to find it</span></span><br><span class="line">:<span class="keyword">tabc</span>[lose]         <span class="comment">"close current tab</span></span><br><span class="line">:<span class="keyword">tabc</span>[lose] &#123;i&#125;     <span class="comment">"close i-th tab</span></span><br><span class="line">:<span class="keyword">tabo</span>[nly]          <span class="comment">"close all other tabs (show only the current tab)</span></span><br></pre></td></tr></table></figure></p>
+<p>normal 跳转前后 tabe 命令：gt, gT<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">nnoremap</span> <span class="symbol">&lt;M-1&gt;</span> <span class="number">1</span>gt</span><br><span class="line"><span class="keyword">noremap</span> <span class="symbol">&lt;M-l&gt;</span> gt	<span class="comment">"go to next tab</span></span><br><span class="line"><span class="keyword">noremap</span> <span class="symbol">&lt;M-h&gt;</span> gT	<span class="comment">"go to previous tab</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><p>分屏打开多个文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim -O main.cpp my-oj-toolkit.h</span><br><span class="line"><span class="comment"># -o 可以水平分屏</span></span><br></pre></td></tr></table></figure></p>
+<p>vim 的优势在于在不同的 window 下打开同一个文件，可以同时编辑文件的不同地方，常用命令：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" 打开/关闭窗口</span></span><br><span class="line">:<span class="keyword">sp</span>[lit] &#123;<span class="keyword">file</span>&#125;     <span class="comment">" 水平分屏</span></span><br><span class="line">:<span class="keyword">new</span> &#123;<span class="keyword">file</span>&#125;         <span class="comment">" 水平分屏</span></span><br><span class="line">:<span class="keyword">sv</span>[iew] &#123;<span class="keyword">file</span>&#125;     <span class="comment">" 水平分屏，以只读方式打开</span></span><br><span class="line">:<span class="keyword">vs</span>[plit] &#123;<span class="keyword">file</span>&#125;    <span class="comment">" 垂直分屏</span></span><br><span class="line">:<span class="keyword">clo</span>[<span class="keyword">se</span>]            <span class="comment">" 关闭当前窗口</span></span><br></pre></td></tr></table></figure></p>
+<p>打开关闭快捷键（有共同的前缀：<code>Ctrl+w</code>），<code>:help window</code></p>
+<ul>
+<li><code>Ctrl+w s</code>：水平分割当前窗口</li>
+<li><code>Ctrl+w v</code>：垂直分割当前窗口</li>
+<li><code>Ctrl+w q</code>：关闭当前窗口</li>
+<li><code>Ctrl+w n</code>：打开一个新窗口（空文件）</li>
+<li><code>Ctrl+w o</code>：关闭出当前窗口之外的所有窗口</li>
+<li><code>Ctrl+w T</code>：当前窗口移动到新标签页</li>
+<li><code>Ctrl+w ]</code>：跳转定义在新窗口打开</li>
+<li><code>Ctrl+w z</code>: 关闭当前打开的 preview window</li>
+</ul>
+<p>切换 window：</p>
+<ul>
+<li><code>Ctrl+w h/j/k/l</code>（左、下、上、右切换）</li>
+<li><code>Ctrl+w w</code>（遍历切换窗口）</li>
+<li><code>Ctrl+w t</code> 切到最上方的窗口</li>
+<li><code>Ctrl+w b</code> 切到最下方的窗口</li>
+</ul>
+<p>调整 window 的大小，分窗口是水平分隔还是垂直分隔：</p>
+<ul>
+<li>水平分隔：<code>:nwinc +/-</code> 把当前激活窗口高度增加、减少 n 个字符高度，如 <code>:5winc +</code></li>
+<li>垂直分隔：<code>:nwinc &gt;/&lt;</code> 把当前激活窗口宽度增加、减少 n 个字符宽度，如 <code>:5winc &gt;</code></li>
+</ul>
+<h1 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h1><p>标记 (mark) 可以实现 vim 的精确定位</p>
+<p>vim 用单一的字符表示</p>
+<ul>
+<li>大小写字母 (A-Za-z) 都可以做为标记的名字，这些标志的位置可由用户设置</li>
+<li>而数字标记0-9，以及一些标点符号，是 vim 内置的特殊标记</li>
+</ul>
+<p>标记规则：</p>
+<ul>
+<li>小写字母标记局限于缓冲区，各缓冲区间的小写字母标记彼此不干扰</li>
+<li>大写字母标记是全局的，它在文件间都有效</li>
+<li>数字标记和标点符号标记可查阅 <code>:help mark-motions</code></li>
+</ul>
+<p>标记命令：</p>
+<ul>
+<li>设定标记：m{a-zA-Z}</li>
+<li>跳转到指定的标记 `{a-zA-Z} 或 ‘{a-zA-Z}</li>
+<li>跳转时不改变 jumplist：g’{mark} 或 g`{mark}</li>
+<li><code>:delmarks</code> 删除指定标记</li>
+<li><code>:marks</code> 列出所有的标记</li>
+</ul>
+<p>特殊的标记：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>跳转至</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[</code></td>
+<td>上一次修改或复制字符</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>上一次在可视模式下选取的字符</td>
+</tr>
+<tr>
+<td><code>&#39;</code></td>
+<td>上一次跳转之前的光标位置</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>上一次插入字符后的光标位置</td>
+</tr>
+<tr>
+<td><code>(</code></td>
+<td>当前句子的开头</td>
+</tr>
+<tr>
+<td><code>{</code></td>
+<td>当前段落的开头</td>
+</tr>
+<tr>
+<td><code>}</code></td>
+<td>当前段落的结尾</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>最后一次修改的地方</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vim/" rel="tag"># vim</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/03/22/lshort/" rel="prev" title="lshort阅读笔记">
+      <i class="fa fa-chevron-left"></i> lshort阅读笔记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#移动"><span class="nav-number">1.</span> <span class="nav-text">移动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本移动"><span class="nav-number">1.1.</span> <span class="nav-text">基本移动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ctrl-对应的键位"><span class="nav-number">2.</span> <span class="nav-text">ctrl 对应的键位</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#buffer-window-tab"><span class="nav-number">3.</span> <span class="nav-text">buffer/window/tab</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#buffer"><span class="nav-number">3.1.</span> <span class="nav-text">buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tabe"><span class="nav-number">3.2.</span> <span class="nav-text">tabe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window"><span class="nav-number">3.3.</span> <span class="nav-text">window</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标记"><span class="nav-number">4.</span> <span class="nav-text">标记</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xuelinye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuelinye</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
