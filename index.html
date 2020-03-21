@@ -165,6 +165,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/signal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xuelinye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xuelinye's notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/21/signal/" class="post-title-link" itemprop="url">linux 中信号的使用</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-21 23:16:26 / 修改时间：21:18:35" itemprop="dateCreated datePublished" datetime="2020-03-21T23:16:26+08:00">2020-03-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以下的内容来自《The Linux Programming Interface》</p>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>信号分类：</p>
+<ul>
+<li>hardware exception：比如段错误、除以 0 操作 (SIGBUS,SIGFPE,SIGILL,SIGSEGV)</li>
+<li>信号通过终端的特殊字符产生的信号，比如 ctrl+c(interrupt), ctrl+z(suspend)</li>
+<li>software event，比如 fd 可读、定时器结束、子进程终止</li>
+</ul>
+<p>signal 处理方式： 1. 忽略信号 2. 进程终止 3. 产生 core dump 4. 进程挂起 5. 进程从挂起恢复运行</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/21/signal/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/14/vim/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -358,85 +431,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/01/27/hexo/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/27/signal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="xuelinye">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="xuelinye's notes">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/27/signal/" class="post-title-link" itemprop="url">linux 中信号的使用</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-01-27 23:16:26" itemprop="dateCreated datePublished" datetime="2018-01-27T23:16:26+08:00">2018-01-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-21 21:16:39" itemprop="dateModified" datetime="2020-03-21T21:16:39+08:00">2020-03-21</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>以下的内容来自《The Linux Programming Interface》</p>
-<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>信号分类：</p>
-<ul>
-<li>hardware exception：比如段错误、除以 0 操作 (SIGBUS,SIGFPE,SIGILL,SIGSEGV)</li>
-<li>信号通过终端的特殊字符产生的信号，比如 ctrl+c(interrupt), ctrl+z(suspend)</li>
-<li>software event，比如 fd 可读、定时器结束、子进程终止</li>
-</ul>
-<p>signal 处理方式： 1. 忽略信号 2. 进程终止 3. 产生 core dump 4. 进程挂起 5. 进程从挂起恢复运行</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/01/27/signal/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
