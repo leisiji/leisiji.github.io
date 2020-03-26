@@ -1,7 +1,7 @@
 ---
 title: linux 中信号的使用
 date: 2020-03-21 23:16:26
-tags: hexo, 前端
+tags: linux
 ---
 
 以下的内容来自《The Linux Programming Interface》
