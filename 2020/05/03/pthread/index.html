@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="以下的内容来自《The Linux Programming Interface》">
+<meta name="keywords" content="linux, ELF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pthread">
+<meta property="og:url" content="http://yoursite.com/2020/05/03/pthread/index.html">
+<meta property="og:site_name" content="xuelinye&#39;s notes">
+<meta property="og:description" content="以下的内容来自《The Linux Programming Interface》">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-03T14:39:35.682Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pthread">
+<meta name="twitter:description" content="以下的内容来自《The Linux Programming Interface》">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/03/pthread/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>pthread | xuelinye's notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xuelinye's notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/03/pthread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xuelinye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xuelinye's notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pthread
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-03 23:16:26 / 修改时间：22:39:35" itemprop="dateCreated datePublished" datetime="2020-05-03T23:16:26+08:00">2020-05-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>以下的内容来自《The Linux Programming Interface》</p>
+<a id="more"></a>
+<h1 id="create"><a href="#create" class="headerlink" title="create"></a>create</h1><p><code>pthread_create()</code> 在调用进程中启动一个线程<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_create</span><span class="params">(<span class="keyword">pthread_t</span> *thread, <span class="keyword">const</span> <span class="keyword">pthread_attr_t</span> *attr,</span></span></span><br><span class="line">					void *(*start_routine) (void *), void *arg);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>新线程通过调用 <code>start_routine()</code> 来开始执行</li>
+<li>arg 是 <code>start_routine()</code> 的唯一参数</li>
+<li><code>attr</code> 可为 NULL，使用默认参数</li>
+</ul>
+<p>线程号通过 <code>pthread_self()</code> 获取：返回值当前调用线程的 tid<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pthread_t</span> pthread_self(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure></p>
+<p>新线程会在以下情况下终止：</p>
+<ul>
+<li>新线程中调用 <code>pthread_exit()</code></li>
+<li>从参数 <code>start_routine</code> 对应的函数 return</li>
+<li>被 <code>pthread_cancel()</code> 取消</li>
+<li>同一个进程的任意线程调用 <code>exit()</code></li>
+</ul>
+<h2 id="attr"><a href="#attr" class="headerlink" title="attr"></a>attr</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 必须使用该接口初始化 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_attr_init</span><span class="params">(<span class="keyword">pthread_attr_t</span> *attr)</span></span>;</span><br><span class="line"><span class="comment">/* 初始化后，必须使用以下接口清理资源</span></span><br><span class="line"><span class="comment"> * 已经创建的线程不受该接口影响 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_attr_destroy</span><span class="params">(<span class="keyword">pthread_attr_t</span> *attr)</span></span>;</span><br></pre></td></tr></table></figure>
+<h1 id="join-detach"><a href="#join-detach" class="headerlink" title="join/detach"></a>join/detach</h1><p><code>pthread_join()</code> 将阻塞调用线程到 join 的线程结束<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 如果线程已经结束，join 会立刻返回 */</span></span><br><span class="line"><span class="comment">/* 若 retval 不是空，会将线程退出状态（pthread_exit）复制到 retval */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_join</span><span class="params">(<span class="keyword">pthread_t</span> thread, <span class="keyword">void</span> **retval)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_detach</span><span class="params">(<span class="keyword">pthread_t</span> thread)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* detachstate:</span></span><br><span class="line"><span class="comment"> * PTHREAD_CREATE_DETACHED, PTHREAD_CREATE_JOINABLE */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_attr_setdetachstate</span><span class="params">(<span class="keyword">pthread_attr_t</span> *attr, <span class="keyword">int</span> detachstate)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>线程状态：<code>PTHREAD_CREATE_DETACHED</code>,<code>PTHREAD_CREATE_JOINABLE</code></p>
+<ul>
+<li>join 表示线程之间互相通知对方结束，最后统一释放所有的线程资源，线程结束后不会释放栈资源</li>
+<li>若为 JOINABLE，但是没有调用 <code>pthread_join()</code> 会导致类似僵尸进程的问题</li>
+<li>detach 表示线程之间不关心对方的结束，让操作系统在该线程结束时来回收它所占的资源（如栈资源）</li>
+</ul>
+<p>线程默认为 JOINABLE，设置为 detach 需要调用其中之一：</p>
+<ul>
+<li>在子线程调用 <code>pthread_detach(pthread_self())</code></li>
+<li>在父线程 <code>pthread_detach(thread_id)</code></li>
+<li>创建线程前设置线程属性 <code>pthread_attr_setdetachstate()</code></li>
+</ul>
+<p><code>pthread_join()</code> 和 <code>waitpid()</code> 区别：</p>
+<ul>
+<li>join 是对等的，即等待的线程不需要有任何关系；后者只能是父进程 wait 子进程</li>
+<li>join 无法做到非阻塞，<code>waitpid(-1,&amp;status,options)</code> 可以实现非阻塞等待</li>
+</ul>
+<h1 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h1><h2 id="lock"><a href="#lock" class="headerlink" title="lock"></a>lock</h2><p>pthread mutex 创建：</p>
+<ul>
+<li><code>PTHREAD_MUTEX_INITIALIZER</code> 静态初始化</li>
+<li><code>pthread_mutex_init()</code> 动态初始化，需要 <code>pthread_mutex_destroy()</code> 销毁<ul>
+<li><code>attr</code> 可为 NULL，使用默认参数</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_init</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex,</span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="keyword">const</span> <span class="keyword">pthread_mutexattr_t</span> *<span class="keyword">restrict</span> attr)</span></span>;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> mutex = PTHREAD_MUTEX_INITIALIZER;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_destroy</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>加锁和解锁：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_lock</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_unlock</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* try api 都是获取不到锁就直接返回 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_trylock</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 超时获取不到锁就返回，errno 设置 ETIMEDOUT */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_timedlock</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">const</span> struct timespec *<span class="keyword">restrict</span> abstime)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>mutex 属性：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutexattr_init</span><span class="params">(<span class="keyword">pthread_mutexattr_t</span> *attr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutexattr_destroy</span><span class="params">(<span class="keyword">pthread_mutexattr_t</span> *attr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutexattr_settype</span><span class="params">(<span class="keyword">pthread_mutexattr_t</span> *attr, <span class="keyword">int</span> type)</span></span>;</span><br><span class="line"><span class="comment">/* type:</span></span><br><span class="line"><span class="comment"> * PTHREAD_MUTEX_NORMAL, PTHREAD_MUTEX_ERRORCHECK,</span></span><br><span class="line"><span class="comment"> * PTHREAD_MUTEX_RECURSIVE */</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h2><p>一个线程通过条件变量通知其他线程，即线程间通信，常用于生产者和消费者模型：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_condattr_destroy</span><span class="params">(<span class="keyword">pthread_condattr_t</span> *attr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_condattr_init</span><span class="params">(<span class="keyword">pthread_condattr_t</span> *attr)</span></span>;</span><br><span class="line"><span class="comment">/* 除了 init 还可以使用静态初始化 */</span></span><br><span class="line"><span class="keyword">pthread_cond_t</span> cond = PTHREAD_COND_INITIALIZER;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_signal</span><span class="params">(<span class="keyword">pthread_cond_t</span> *cond)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_broadcast</span><span class="params">(<span class="keyword">pthread_cond_t</span> *cond)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 调用前必须对 mutex 加锁，否则返回 PTHREAD_MUTEX_ERRORCHECK */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_wait</span><span class="params">(<span class="keyword">pthread_cond_t</span> *cond, <span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_timedwait</span><span class="params">(<span class="keyword">pthread_cond_t</span> *cond,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">pthread_mutex_t</span> *mutex, <span class="keyword">const</span> struct timespec *abstime)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><code>pthread_cond_signal()</code> 只能唤醒一个线程，<code>pthread_cond_broadcast()</code> 可以唤醒所有等待条件变量的线程</p>
+<p><code>pthread_cond_wait()</code></p>
+<ul>
+<li>被调用时自动将 mutex 解锁再等待（两个动作合起来是原子的）：<ul>
+<li>若消费者先解锁后等待，则生产者可能在两个动作之间完成生产（<code>pthread_cond_signal()</code>）、加锁，导致消费者错过这次信号</li>
+</ul>
+</li>
+<li>成功返回（被唤醒）会对 mutex 自动加锁</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 例子：https://zhuanlan.zhihu.com/p/55123862</span></span><br><span class="line"><span class="comment">// Thread Consumer</span></span><br><span class="line">pthread_mutex_lock(&amp;mutex);</span><br><span class="line"><span class="keyword">while</span> (<span class="literal">false</span> == ready) &#123;</span><br><span class="line">	pthread_cond_wait(&amp;cond, &amp;mutex);</span><br><span class="line">&#125;</span><br><span class="line">ready = <span class="literal">false</span>;</span><br><span class="line">pthread_mutex_unlock(&amp;mutex);</span><br><span class="line"><span class="comment">// Thread Producer</span></span><br><span class="line">pthread_mutex_lock(&amp;mutex);</span><br><span class="line">ready = <span class="literal">true</span>;</span><br><span class="line">pthread_cond_signal(&amp;cond);</span><br><span class="line">pthread_mutex_unlock(&amp;mutex);</span><br></pre></td></tr></table></figure>
+<p>检查条件时使用 while 而非 if：若有 2 个消费者同时被唤醒，其中一个拿到锁后消费，最后释放锁，另一个拿到锁后肯定是没有东西可消费了；用 while 可以使另一个消费者再进入等待状态</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="多线程只执行一次的函数"><a href="#多线程只执行一次的函数" class="headerlink" title="多线程只执行一次的函数"></a>多线程只执行一次的函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_once</span><span class="params">(<span class="keyword">pthread_once_t</span> *once_control,</span></span></span><br><span class="line">		void (*init_routine)(void));</span><br><span class="line"><span class="keyword">pthread_once_t</span> once_control = PTHREAD_ONCE_INIT;</span><br></pre></td></tr></table></figure>
+<h2 id="特定线程的数据"><a href="#特定线程的数据" class="headerlink" title="特定线程的数据"></a>特定线程的数据</h2><p><code>pthread_key_create()</code> 创建 key：</p>
+<ul>
+<li>destructor 用于线程结束时清除线程的数据</li>
+<li>比如线程进行 malloc 后，将地址传到 <code>pthread_setspecific()</code> 中</li>
+<li>线程通过 <code>pthread_getspecific()</code> 获取 malloc 的数据</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int pthread_key_create(pthread_key_t *key, void (*destructor)(void*));</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_setspecific</span><span class="params">(<span class="keyword">pthread_key_t</span> key, <span class="keyword">const</span> <span class="keyword">void</span> *value)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">pthread_getspecific</span><span class="params">(<span class="keyword">pthread_key_t</span> key)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>实现一个线程安全的 strerr:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_ERR_LEN 64</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">pthread_key_t</span> strerrKey;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">pthread_once_t</span> once = PTHREAD_ONCE_INIT;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">destructor</span><span class="params">(<span class="keyword">void</span> *buf)</span> </span>&#123; <span class="built_in">free</span>(buf); &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> s = pthread_key_create(&amp;strerrKey, destructor);</span><br><span class="line">	<span class="keyword">if</span> (s != <span class="number">0</span>) <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strerr</span><span class="params">(<span class="keyword">int</span> err)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> *buf;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> s = pthread_once(&amp;once, createKey);</span><br><span class="line">	<span class="keyword">if</span> (s != <span class="number">0</span>) <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	buf = pthread_getspecific(strerrKey);</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == buf) &#123;</span><br><span class="line">		buf = <span class="built_in">malloc</span>(MAX_ERR_LEN);</span><br><span class="line">		<span class="keyword">if</span> (<span class="literal">NULL</span> == buf) <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">		s = pthread_setspecific(strerrKey, buf);</span><br><span class="line">		<span class="keyword">if</span> (s &lt; <span class="number">0</span>) <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (err &lt; <span class="number">0</span> || err &gt; _sys_nerr || _sys_errlist[err] == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="built_in">snprintf</span>(buf, MAX_ERR_LEN, <span class="string">"Unknown error:%d"</span>, err);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">strncpy</span>(buf, _sys_errlist[err], MAX_ERR_LEN - <span class="number">1</span>);</span><br><span class="line">		buf[MAX_ERR_LEN - <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> buf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>默认的 key 最多是 <code>_POSIX_THREAD_KEYS_MAX</code>（128），通过 <code>sysconf(_SC_THREAD_KEYS_MAX)</code> 可以提高上限到 1024</p>
+<blockquote>
+<p><strong>Thread-Local Storage</strong>，比如之前的线程安全 strerr 可通过 <code>static __thread buf[MAX_ERROR_LEN];</code> 来实现：<code>__thread</code> 只能跟在 static 或 extern 关键字后</p>
+</blockquote>
+<h1 id="取消线程"><a href="#取消线程" class="headerlink" title="取消线程"></a>取消线程</h1><p>相关 API：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cancel</span><span class="params">(<span class="keyword">pthread_t</span> thread)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 设置取消状态：可取消和无法取消 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_setcancelstate</span><span class="params">(<span class="keyword">int</span> state, <span class="keyword">int</span> *oldstate)</span></span>;</span><br><span class="line"><span class="comment">/* PTHREAD_CANCEL_DISABLE, PTHREAD_CANCEL_ENABLE */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 设置取消类型 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_setcanceltype</span><span class="params">(<span class="keyword">int</span> type, <span class="keyword">int</span> *oldtype)</span></span>;</span><br><span class="line"><span class="comment">/* type:</span></span><br><span class="line"><span class="comment"> * PTHREAD_CANCEL_ASYNCHRONOUS：可随时取消，较少用到</span></span><br><span class="line"><span class="comment"> * PTHREAD_CANCEL_DEFERRED：线程取消会被推迟到 cancellation point，默认</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 在调用线程创建一个 cancellation point</span></span><br><span class="line"><span class="comment"> * 使得没有 cancellation point 的线程也能被取消 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pthread_testcancel</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Cancellation Points 通常是会引起阻塞的函数</li>
+<li>因此一个线程若没有 cancellation point，被取消后也能执行完成</li>
+</ul>
+<p>可以设置退出时调用的函数（称为线程清理处理程序）</p>
+<ul>
+<li>多个清理函数保存在栈中，执行顺序与注册时的顺序相反</li>
+<li>清理函数的执行时机：<code>pthread_exit()</code>, <code>pthread_cancel()</code>, <code>pthread_cleanup_pop(e&gt;0)</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void pthread_cleanup_push(void (*routine)(void *), void *arg);</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pthread_cleanup_pop</span><span class="params">(<span class="keyword">int</span> execute)</span></span>;</span><br></pre></td></tr></table></figure>
+<h1 id="FURTHER-DETAILS"><a href="#FURTHER-DETAILS" class="headerlink" title="FURTHER DETAILS"></a>FURTHER DETAILS</h1><h2 id="Thread-Stacks"><a href="#Thread-Stacks" class="headerlink" title="Thread Stacks"></a>Thread Stacks</h2><p>x86-32 的线程栈的默认大小是 2MB，以下函数可以控制栈的大小和起始位置<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_attr_setstack</span><span class="params">(<span class="keyword">pthread_attr_t</span> *attr,</span></span></span><br><span class="line"><span class="function"><span class="params">						 <span class="keyword">void</span> *stackaddr, <span class="keyword">size_t</span> stacksize)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_attr_getstack</span><span class="params">(<span class="keyword">const</span> <span class="keyword">pthread_attr_t</span> *attr,</span></span></span><br><span class="line"><span class="function"><span class="params">						 <span class="keyword">void</span> **stackaddr, <span class="keyword">size_t</span> *stacksize)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><code>sysconf(_SC_THREAD_STACK_MIN)</code> 可以设置线程栈的最小值</p>
+<h2 id="Threads-and-signals"><a href="#Threads-and-signals" class="headerlink" title="Threads and signals"></a>Threads and signals</h2><ul>
+<li>信号默认行为和信号处理函数的注册（<code>sigaction()</code>）都是进程级别的</li>
+<li>信号的发送可以到达线程级别，以下情况是线程级别的信号：<ul>
+<li>某个线程导致的 hardware exception：SIGBUS,SIGFPE,SIGILL,SIGSEGV</li>
+<li>某个线程导致 SIGPIPE</li>
+<li>使用 <code>pthread_kill()</code> 或 <code>pthread_sigqueue()</code> 发送的信号</li>
+</ul>
+</li>
+<li>信号发送到进程时，内核会随机选择一个线程来运行信号处理函数</li>
+<li>signal mask 是线程级的，在线程创建会被继承：<code>pthread_sigmask()</code> 可以拦截信号，从而可使发送到进程的信号指向某个线程</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_kill</span><span class="params">(<span class="keyword">pthread_t</span> thread, <span class="keyword">int</span> sig)</span></span>;</span><br><span class="line"><span class="comment">/* 类似 sigqueue() */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_sigqueue</span><span class="params">(<span class="keyword">pthread_t</span> thread, <span class="keyword">int</span> sig,</span></span></span><br><span class="line"><span class="function"><span class="params">						<span class="keyword">const</span> <span class="keyword">union</span> sigval value)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_sigmask</span><span class="params">(<span class="keyword">int</span> how, <span class="keyword">const</span> <span class="keyword">sigset_t</span> *<span class="built_in">set</span>, <span class="keyword">sigset_t</span> *oldset)</span></span>;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux-ELF/" rel="tag"># linux, ELF</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/05/ELF1/" rel="prev" title="ELF 入门（一）">
+      <i class="fa fa-chevron-left"></i> ELF 入门（一）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#create"><span class="nav-number">1.</span> <span class="nav-text">create</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#attr"><span class="nav-number">1.1.</span> <span class="nav-text">attr</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#join-detach"><span class="nav-number">2.</span> <span class="nav-text">join/detach</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程同步"><span class="nav-number">3.</span> <span class="nav-text">线程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lock"><span class="nav-number">3.1.</span> <span class="nav-text">lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件变量"><span class="nav-number">3.2.</span> <span class="nav-text">条件变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程只执行一次的函数"><span class="nav-number">4.1.</span> <span class="nav-text">多线程只执行一次的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特定线程的数据"><span class="nav-number">4.2.</span> <span class="nav-text">特定线程的数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#取消线程"><span class="nav-number">5.</span> <span class="nav-text">取消线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FURTHER-DETAILS"><span class="nav-number">6.</span> <span class="nav-text">FURTHER DETAILS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread-Stacks"><span class="nav-number">6.1.</span> <span class="nav-text">Thread Stacks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Threads-and-signals"><span class="nav-number">6.2.</span> <span class="nav-text">Threads and signals</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xuelinye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuelinye</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
