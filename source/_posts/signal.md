@@ -14,7 +14,7 @@ tags: linux
 - 信号通过终端的特殊字符产生的信号，比如 ctrl+c(interrupt), ctrl+z(suspend)
 - software event，比如 fd 可读、定时器结束、子进程终止
 
-signal 处理方式： 1. 忽略信号 2. 进程终止 3. 产生 core dump 4. 进程挂起 5. 进程从挂起恢复运行
+signal 处理方式：1. 忽略信号 2. 进程终止 3. 产生 core dump 4. 进程挂起 5. 进程从挂起恢复运行
 
 <!--more-->
 
@@ -105,7 +105,7 @@ int killpg(int pgrp, int sig);
 // 相当于 kill(-pgrp, sig);
 
 /* 向指定的 pid 发送信号
- × 参数 value 会传递给 sigaction 作为其入参 */
+ * 参数 value 会传递给 sigaction 作为其入参 */
 int sigqueue(pid_t pid, int sig, const union sigval value);
 union sigval {
 	int   sival_int;
